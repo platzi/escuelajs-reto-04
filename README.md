@@ -17,8 +17,8 @@ Crea una función llamada "randomTime" que te permita retornar un valor en mili 
 
 Crea una función llamada "waiter2" que se encargue de recoger dos pedidos, uno de la "Mesa 1" y otro de la "Mesa 3".
 
-* Pedido "Mesa 1": Combo Hotdog
-* Pedido "Mesa 3"" Combo Pizza
+Pedido "Mesa 1": Combo Hotdog
+Pedido "Mesa 3": Combo Pizza
 
 * Utiliza Promesas Encadenadas
 * Utiliza la función de randomTime
