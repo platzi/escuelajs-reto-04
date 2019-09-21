@@ -27,8 +27,21 @@ const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
   orders(randomTime(), menu.hamburger, table[3], randomState())
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
+};
+
+const waiterTwo = () => {
+  orders(randomTime(), menu.hotdog, table[0], randomState())
+    .then(response => {
+      console.log(response)
+      return orders(randomTime(), menu.pizza, table[2], randomState())
+    })
+    .then(response2 => {
+      console.log(response2)
+    })
+    .catch(error => console.error(error));
 };
 
 waiter();
+waiterTwo();
