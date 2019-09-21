@@ -21,7 +21,7 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
-waiter();
+// waiter();
 
 function randomTime() {
     const min = 1000
@@ -29,3 +29,18 @@ function randomTime() {
 
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+const waiter2 = (mesas, combos) => {
+    mesas.forEach(myfunction)
+
+    function myfunction(item, index) {
+        orders(randomTime(), combos[index], tables[item])
+            .then((res) => {console.log(res)})
+            .catch((err) => console.error(err));
+    }
+}
+
+const mesas_ordenes = [0, 2]
+const mesas_combo = [menu.hotdog, menu.pizza]
+
+waiter2(mesas_ordenes, mesas_combo);
