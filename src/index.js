@@ -59,34 +59,41 @@ const waiter2 = () => {
 };
 
 const waiter3 = async () => {
-  const orderCustomer1 = orders(randomTime(), menu.pizza, table[1])
-  const orderCustomer2 = orders(randomTime(), menu.hamburger, table[1])
-  const orderCustomer3 = orders(randomTime(), menu.hotdog, table[1])
+  try {
+    const orderCustomer1 = orders(randomTime(), menu.pizza, table[1])
+    const orderCustomer2 = orders(randomTime(), menu.hamburger, table[1])
+    const orderCustomer3 = orders(randomTime(), menu.hotdog, table[1])
 
-  const processOrders = await Promise.all([orderCustomer1, orderCustomer2, orderCustomer3])
-  processOrders.forEach((orders) => {
-    console.log(orders);
-  })
+    const processOrders = await Promise.all([orderCustomer1, orderCustomer2, orderCustomer3])
+    processOrders.forEach((orders) => {
+      console.log(orders);
+    })
+  } catch (error) {
+    console.error("Ha ocurrido un error a momento de generar la orden", error);
+  }
 };
 
 
 const waiter4 = async () => {
+  try {
+    const menu1 = fetchOrders();
+    const menu2 = fetchOrders();
+    const menu3 = fetchOrders();
+    const menu4 = fetchOrders();
 
-  const menu1 = fetchOrders();
-  const menu2 = fetchOrders();
-  const menu3 = fetchOrders();
-  const menu4 = fetchOrders();
+    const menus = await Promise.all([menu1,menu2,menu3,menu4]);
+    let orderList = [];
+    menus.forEach((menu) => {
+      orderList.push(orders(randomTime(), menu.data, table[1]));
+    })
 
-
-  const menus = await Promise.all([menu1,menu2,menu3,menu4]);
-  let orderList = [];
-  menus.forEach((menu) => {
-    orderList.push(orders(randomTime(), menu.data, table[1]));
-  })
-  const processOrders = await Promise.all(orderList)
-  processOrders.forEach((order) => {
-    console.log(order);
-  })
+    const processOrders = await Promise.all(orderList)
+    processOrders.forEach((order) => {
+      console.log(order);
+    })
+  } catch (error) {
+    console.error("Ha ocurrido un error a momento de generar la orden", error);
+  }
 };
 
 
