@@ -51,5 +51,23 @@ const waiter2 = () => {
     .catch(err => console.error(err));
 };
 
-waiter();
-waiter2();
+const waiter3 = async () => {
+  try {
+    let pedido1 = await orders(randomTime(), table[1]);
+    let pedido2 = await orders(randomTime(), menu.pizza, table[1]);
+    let pedido3 = await orders(randomTime(), menu.hotdog, table[1]);
+    console.log('Ordenes listas');
+    console.log(pedido1);
+    console.log(pedido2);
+    console.log(pedido3);
+  } catch (err) {
+    console.log(new Error(`Hubo un problema en la cocina: ${err}`));
+  }
+};
+
+// Primer problema
+//waiter();
+// Segundo problema
+//waiter2();
+// Tercer problema
+waiter3();
