@@ -3,6 +3,8 @@ const orders = (time, product, table) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+    reject(`Algo salio maal :(`)
+
     }, time);
   });
 }
@@ -50,6 +52,8 @@ const waiter3 = async () => {
 };
 
 waiter3();
+
+
 
 
 
