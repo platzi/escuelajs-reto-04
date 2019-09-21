@@ -1,3 +1,5 @@
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
@@ -6,6 +8,27 @@ const orders = (time, product, table) => {
     }, time);
   });
 }
+
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+const xhttp = new XMLHttpRequest();
+
+
+const fetchOrders = () => {
+  return new Promise((resolve, reject) => {
+    xhttp.onreadystatechange = (event) => {
+      if (xhttp.readyState === 4) {
+        if (xhttp.status === 200) {
+          resolve(JSON.parse(xhttp.responseText));
+        }
+        else
+          reject(API);
+      }
+    };
+    xhttp.open('GET', API, false);
+    xhttp.send();
+  });
+}
+
 
 const menu = {
   hamburger: 'Combo Hamburguesa',
@@ -47,8 +70,28 @@ const waiter3 = async () => {
 };
 
 
+const waiter4 = async () => {
+
+  const menu1 = fetchOrders();
+  const menu2 = fetchOrders();
+  const menu3 = fetchOrders();
+  const menu4 = fetchOrders();
+
+
+  const menus = await Promise.all([menu1,menu2,menu3,menu4]);
+  let orderList = [];
+  menus.forEach((menu) => {
+    orderList.push(orders(randomTime(), menu.data, table[1]));
+  })
+  const processOrders = await Promise.all(orderList)
+  processOrders.forEach((order) => {
+    console.log(order);
+  })
+};
+
 
 
 waiter();
 waiter2();
 waiter3();
+waiter4();
