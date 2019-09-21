@@ -5,7 +5,7 @@ const orders = (time, product, table) => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
     if (time > 7000) {
-      reject(`El pedido ha superado el tiempo de respuesta de 7 segundos, se ha cancelado`);
+      reject(`El pedido ${product} ha superado el tiempo de respuesta de 7 segundos, se ha cancelado`);
     }
   });
 };
@@ -24,8 +24,16 @@ const randomTime = () => {
 
 const waiter = () => {
   orders(randomTime(), menu.hamburger, table[3])
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
+};
+
+const waiter2 = () => {
+  orders(randomTime(), menu.hotdog, table[0]).then(response => console.log(response));
+  return orders(randomTime(), menu.pizza, table[2])
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
 };
 
 waiter();
+waiter2();
