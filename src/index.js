@@ -49,3 +49,20 @@ const waiter2 = () => {
 };
 
 waiter2()
+
+const waiter3 = async () => {
+  try {
+    const listOfOrdersToServe = [
+      await orders(randomTime(), menu.hotdog, table[1]),
+      await orders(randomTime(), menu.pizza, table[1]),
+      await orders(randomTime(), menu.hotdog, table[1])
+    ]
+    const ordersToServe = await Promise.all(listOfOrdersToServe)
+
+    console.log(ordersToServe)
+  } catch (error) {
+    console.error(error.message)
+  }
+};
+
+waiter3()
