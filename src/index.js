@@ -1,9 +1,15 @@
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    }, time);
+    if(product === undefined){
+      reject('es platillo no lo preparamos')
+    }else if(!table){
+      reject('La orden no tiene mesa')
+    }else {
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      }, time);
+    }
   });
 }
 
