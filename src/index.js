@@ -1,3 +1,7 @@
+const randomTime = () => {
+  return Math.floor((Math.random() * 7000) + 1000);
+};
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
@@ -16,7 +20,7 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(6000, menu.hamburger, table[3])
+  orders(randomTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
