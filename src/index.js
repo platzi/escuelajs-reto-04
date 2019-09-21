@@ -10,6 +10,9 @@ const orders = (time, product, table) => {
   });
 }
 
+const randomTime = (min, max) => {
+  const random = Math.random() * (max - min) + min;
+  return Math.ceil(random)
 }
 
 
@@ -22,7 +25,8 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(6000, menu.hamburger, table[3])
+  const orderTime = randomTime(1000, 8000)
+  orders(orderTime, menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
