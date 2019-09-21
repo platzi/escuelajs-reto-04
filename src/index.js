@@ -1,3 +1,6 @@
+const min = 1000;
+const max = 8000;
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
@@ -19,17 +22,25 @@ const menu = {
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
+const randomTime = (min, max) => {
+  return Math.trunc(Math.random() * (max - min) + min);
+}
+
 const waiter = () => {
-  const min = 1000;
-  const max = 8000;
   orders(randomTime(min,max), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
-const randomTime = (min, max) => {
-  return Math.trunc(Math.random() * (max - min) + min);
+const waiter2 = () => {
+  orders(randomTime(min,max),menu.hotdog, table[0])
+  .then( (res) => {
+    console.log(res)
+    return orders(randomTime(min,max),menu.pizza, table[2])
+  })
+  .then ( (res) => console.log(res))
+  .catch( (err) => console.error(err));
 }
 
-waiter();
-// console.log(randomTime(1000,8000));
+//waiter();
+waiter2();
