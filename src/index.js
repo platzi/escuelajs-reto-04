@@ -1,9 +1,13 @@
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    }, time);
+    if (time != null && product != null && table != null) {
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      }, time);
+    } else {
+      reject(`ALgun valor esta vacio`)
+    }
   });
 }
 
@@ -31,6 +35,20 @@ const waiter2 = () => {
     .catch((err) => console.error(err));
 }
 
+async function obtenerOrdenesMesa3() {
+
+  const orderCustomer1 = await orders(randomTime(), menu.hotdog, table[1])
+  const orderCustomer2 = await orders(randomTime(), menu.pizza, table[1])
+  const orderCustomer3 = await orders(randomTime(), menu.hotdog, table[1])
+
+  return Promise.all([orderCustomer1, orderCustomer2, orderCustomer3])
+}
+async function waiter3() {
+  const ordenes = await obtenerOrdenesMesa3()
+  ordenes.forEach(order => {
+    console.log(order)
+  });
+}
 //Problema 1
 const randomTime = () => {
   let min = 1000
@@ -40,3 +58,4 @@ const randomTime = () => {
 
 waiter();
 waiter2();
+waiter3();
