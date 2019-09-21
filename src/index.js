@@ -46,33 +46,13 @@ const waiter2 = () => {
     .catch(error => console.error(error));
 };
 
-const waiter3 = () => {
-  orders(randomTime(), menu.hotdog, table[2])
-    .then(response => {
-      console.log(response);
-    })
-    .then(
-      orders(randomTime(), menu.pizza, table[2]).then(response => {
-        console.log(response);
-      })
-    )
-    .then(
-      orders(randomTime(), menu.hotdog, table[2]).then(response => {
-        console.log(response);
-      })
-    )
-    .catch(error => console.error(error));
+const waiter3 = async () => {
+  const orderOne = await orders(randomTime(), menu.hotdog, table[2]);
+  const orderTwo = await orders(randomTime(), menu.pizza, table[2]);
+  const orderThree = await orders(randomTime(), menu.hotdog, table[2]);
+  return console.log(`${orderOne} \n ${orderTwo} \n ${orderThree}`);
 };
 
-async function responseWaiter3() {
-  try {
-    const result = await waiter3();
-    console.log(result);
-  } catch {
-    return new Error("Ups! ha ocurrido un error...");
-  }
-}
-
-// waiter();
-// waiter2();
-responseWaiter3();
+waiter();
+waiter2();
+waiter3();
