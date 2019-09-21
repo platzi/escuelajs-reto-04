@@ -27,10 +27,24 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  orders(varTime(), menu.hotdog, table[0])
+    .then(res => {
+      console.log(res)
+      orders(varTime(), menu.pizza, table[2])
+      .then(res => {
+        console.log(res)
+      })
+      .catch((err) => console.log(err))
+    })
+    .catch((err) => console.log(err))
+    
+};
+
 function varTime() {
   var max = 8000
   var min = 1000
   return Math.floor(Math.random() * (max -min) + min)
 }
 
-waiter();
+waiter2();
