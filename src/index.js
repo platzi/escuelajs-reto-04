@@ -22,3 +22,5 @@ const waiter = () => {
 };
 
 waiter();
+
+const randomTime = () => Math.random() * (8000 - 1000) + 1000
