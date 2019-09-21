@@ -4,6 +4,7 @@ Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 # Ejecución
 
 ```
+npm install
 npm run start
 ```
 
