@@ -1,3 +1,12 @@
+/**
+ * Función que regresa un valor entre min y max
+ */ 
+const randomTime = function (min, max) {
+  return Math.floor(Math.random() * (+max - +min) + +min)
+}
+
+
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
@@ -22,3 +31,4 @@ const waiter = () => {
 };
 
 waiter();
+
