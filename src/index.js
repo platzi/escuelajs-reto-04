@@ -38,5 +38,20 @@ const randomTime = (min, max) => {
   return Math.floor((Math.random() * (max - min + 1)) + min)
 }
 
+const waiter3 = async () => {
+  const res = []
+
+  res[0] = orders(randomTime(MIN, MAX), menu.hamburger, table[1])
+  res[1] = orders(randomTime(MIN, MAX), menu.hotdog, table[1])
+  res[2] = orders(randomTime(MIN, MAX), menu.pizza, table[1])
+
+  const responses = await Promise.all(res)
+
+  for(response of responses){
+    console.log(response)
+  }
+};
+
 waiter();
 waiter2();
+waiter3();
