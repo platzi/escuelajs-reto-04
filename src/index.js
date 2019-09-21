@@ -21,14 +21,26 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
-waiter();
+//waiter();
 
 // 1st CHALLENGE:
 // create a function that gets random numbers between 1 yo 8
 
 function randomTime() {
  let randomNumber = Math.round(Math.random() * (8000 -  1000) + 1000);
- console.log(randomNumber);
+ return randomNumber;
 }
-
 randomTime();
+
+// 2nd CHALLENGE:
+const waiter2 = () => {
+  orders(randomTime(),menu.hamburger, table[0])
+    .then((res) => console.log(res))
+    .then(()=> {
+      return orders(randomTime(),menu.pizza, table[2])
+      .then((res) => console.log(res))
+    })
+    .catch((err) => console.error(err));
+    
+}
+waiter2();
