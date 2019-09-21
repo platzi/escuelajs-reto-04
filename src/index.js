@@ -33,8 +33,8 @@ const menu = {
 };
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
-let min_prod_time = 100
-let max_prod_time = 800
+let min_prod_time = 1000
+let max_prod_time = 8000
 
 
 const waiter = () => {
