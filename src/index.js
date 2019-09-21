@@ -4,21 +4,52 @@ const orders = (time, product, table) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
+    if (time > 7000) {
+      reject(`El pedido ${product} ha superado el tiempo de respuesta de 7 segundos, se ha cancelado`);
+    }
   });
-}
+};
 
 const menu = {
   hamburger: 'Combo Hamburguesa',
   hotdog: 'Combo Hot Dogs',
-  pizza: 'Combo Pizza',
+  pizza: 'Combo Pizza'
 };
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
+const randomTime = () => {
+  return Math.floor(Math.random() * 8 + 1) * 1000;
+};
+
 const waiter = () => {
-  orders(6000, menu.hamburger, table[3])
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
+  orders(randomTime(), menu.hamburger, table[3])
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
+};
+
+const waiter2 = () => {
+  orders(randomTime(), menu.hotdog, table[0]).then(response => console.log(response));
+  return orders(randomTime(), menu.pizza, table[2])
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
+};
+
+const waiter3 = async () => {
+  const order1 = orders(randomTime(), menu.hotdog, table[1]);
+  const order2 = orders(randomTime(), menu.pizza, table[1]);
+  const order3 = orders(randomTime(), menu.hotdog, table[1]);
+
+  const promises = [order1, order2, order3];
+  try {
+    const getOrders = await Promise.all(promises);
+    console.log(getOrders);
+  } catch (error) {
+    return console.error(error);
+  }
 };
 
 waiter();
+waiter2();
+
+waiter3();
