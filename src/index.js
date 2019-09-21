@@ -37,7 +37,7 @@ const waiter2 = () => {
   orders(randomTime(), menu.hotdog, table[0])
     .then(response => {
       onResponse(response)
-     return orders(randomTime(), menu.pizza, table[2])
+      return orders(randomTime(), menu.pizza, table[2])
     })
     .then(response =>
       onResponse(response)
@@ -45,5 +45,19 @@ const waiter2 = () => {
     .catch(error => onError(error));
 }
 
-waiter();
-waiter2();
+const waiter3 = async () => {
+  try {
+    const [responseA, responseB, responseC] = await Promise.all([
+      orders(randomTime(), menu.hotdog, table[1]),
+      orders(randomTime(), menu.pizza, table[1]),
+      orders(randomTime(), menu.hotdog, table[1]),
+    ]);
+    console.log(`${responseA}\n${responseB}\n${responseC}`);
+  } catch (error) {
+      onError(error)
+  }
+}
+
+// waiter();
+// waiter2();
+waiter3();
