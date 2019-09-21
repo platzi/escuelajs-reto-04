@@ -35,5 +35,21 @@ const waiter2 = () => {
     .catch(error => console.error(error));
 };
 
+const waiter3 = async () => {
+  const order1 = orders(randomTime(), menu.hotdog, table[1]);
+  const order2 = orders(randomTime(), menu.pizza, table[1]);
+  const order3 = orders(randomTime(), menu.hotdog, table[1]);
+
+  const promises = [order1, order2, order3];
+  try {
+    const getOrders = await Promise.all(promises);
+    console.log(getOrders);
+  } catch (error) {
+    return console.error(error);
+  }
+};
+
 waiter();
 waiter2();
+
+waiter3();
