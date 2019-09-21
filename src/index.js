@@ -24,8 +24,19 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  orders(randomTime(MIN, MAX), menu.hamburger, table[0])
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+  
+  orders(randomTime(MIN, MAX), menu.hamburger, table[2])
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+}
+
 const randomTime = (min, max) => {
   return Math.floor((Math.random() * (max - min + 1)) + min)
 }
 
 waiter();
+waiter2();
