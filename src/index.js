@@ -1,6 +1,5 @@
-const MAX_TIME = 10000;
+const MAX_TIME = 8000;
 const MIN_TIME = 1000;
-const MAX_EXPECTED_TIME = 8000;
 
 const randomTime = () => Math.floor(Math.random() * ((MAX_TIME + 1) - MIN_TIME) + MIN_TIME);
 
@@ -8,10 +7,11 @@ const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (time > MAX_EXPECTED_TIME ) {
-        reject(`=== El pedido: ${product} tardó mucho en salir, se demoró ${time}ms, el cliente ya se fue :(`)
+      if (time && typeof time == 'number') {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      } else {
+        reject(`=== Ocurrió un error con el pedido: ${product} :(`)
       }
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
   });
 }
@@ -34,7 +34,16 @@ const waiter = () => {
 };
 
 const waiter2 = () => {
-
+  orders(randomTime(), menu.hotdog, table[0])
+    .then(response => {
+      onResponse(response)
+     return orders(randomTime(), menu.pizza, table[2])
+    })
+    .then(response =>
+      onResponse(response)
+    )
+    .catch(error => onError(error));
 }
 
 waiter();
+waiter2();
