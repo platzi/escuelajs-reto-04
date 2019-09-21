@@ -8,15 +8,15 @@ const randomTime = function (min, max) {
 
 
 
-const orders = (time, product, table) => {
-  console.log(`### Orden: ${product} para ${table}`);
+const orders = (time, product, table, waiter_name) => {
+  console.log(`### Orden: ${product} para ${table} \n`);
   
   return new Promise((resolve, reject) => {
     if(product === undefined){
       reject("Lo sentimos el producto que solicita no está disponible")
     }else{
       setTimeout(() => {
-        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+        resolve(`${waiter_name}: === Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}  \n\n`);
       }, time);
     }
   
@@ -35,28 +35,35 @@ let max_prod_time = 800
 
 
 const waiter = () => {
-  orders(randomTime(min_prod_time,max_prod_time), menu.hamburger, table[3])
+  console.log("Waiter 1...")
+  orders(randomTime(min_prod_time,max_prod_time), menu.hamburger, table[3], "waiter 1")
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
 const waiter2 = () => {
-  orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[0])
+  console.log("Waiter 2...")
+  orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[0], "waiter 2")
     .then((res) => {
       console.log(res)
-      orders(randomTime(min_prod_time,max_prod_time), menu.pizza, table[2])
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+      return orders(randomTime(min_prod_time,max_prod_time), menu.pizza, table[2],  "waiter 3")      
     })
+    .then((res) => console.log(res))
     .catch((err) => console.error(err));
+
     
 };
 
 const waiter3 = async () => {
-  const orden1 = await orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[1])
-  const orden2 = await orders(randomTime(min_prod_time,max_prod_time), menu.pizza, table[1])
-  const orden3 = await orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[1])
-  console.log(`Las 3 órdenes están listas: ${orden1},  ${orden2}, ${orden3}`)
+  console.log("Waiter 3...")
+  const orden1 = await orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[1], "Waiter 3")
+  const orden2 = await orders(randomTime(min_prod_time,max_prod_time), menu.pizza, table[1], "Waiter 3")
+  const orden3 = await orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[1], "Waiter 3")
+  console.log(`Las 3 órdenes están listas: 
+  ${orden1},  
+  ${orden2}, 
+  ${orden3}`)
+  console.log(" ")
 
 };
 
