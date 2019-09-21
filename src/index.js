@@ -91,10 +91,8 @@ const waiter4 = async () => {
       return data.text()
     }
   )
-  .then(body => {
-      console.log(body)
+  .then(body => {   
       let menu_externo = JSON.parse(body)
-      console.log(menu_externo)
       hacer_4_pedidos("Waiter4",table[0], menu_externo)
      return menu_externo
 
