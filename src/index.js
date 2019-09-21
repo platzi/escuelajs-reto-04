@@ -4,16 +4,16 @@ const orders = (time, product, table) => {
 
     setTimeout(() => {
       if (true) {
-        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);  
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
       } else {
         reject(`!== Pedido falló: ${product}, tiempo de preparación ${time}ms para la ${table}`);
       }
-      
+
     }, time);
   });
 }
-const randomTime = () =>{
-  return  Math.floor(Math.random() * (8000 - 1000) + 1000);
+const randomTime = () => {
+  return Math.floor(Math.random() * (8000 - 1000) + 1000);
 }
 
 const menu = {
@@ -35,14 +35,21 @@ const waiter = () => {
 
 const waiter2 = () => {
   orders(randomTime(), menu.hotdog, table[0])
-    .then((res) => console.log(res))
+    .then((res) => {
+      orders(randomTime(), menu.pizza, table[2])
+        .then((res) => console.log(res));
+      console.log(res);
+    })
+
     .catch((err) => console.error(err));
-  orders(randomTime(), menu.pizza, table[2])
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
+
+};
+async function waiter3() {
+
 };
 
 
 waiter();
 waiter2();
+
 
