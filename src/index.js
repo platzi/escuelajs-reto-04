@@ -49,9 +49,18 @@ const waiter2 = () => {
       .catch((err) => console.error(err));
     })
     .catch((err) => console.error(err));
-
     
 };
 
+const waiter3 = async () => {
+  const orden1 = await orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[1])
+  const orden2 = await orders(randomTime(min_prod_time,max_prod_time), menu.pizza, table[1])
+  const orden3 = await orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[1])
+  console.log(`Las 3 órdenes están listas: ${orden1},  ${orden2}, ${orden3}`)
+
+};
+
+//Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
 waiter();
 waiter2();
+waiter3();
