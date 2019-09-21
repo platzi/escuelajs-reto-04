@@ -90,7 +90,7 @@ const waiter3 = async () => {
       orders(randomTime(), menu.hotdog, table[1]),
     ]);
 
-    console.log(ordersToServe);
+    ordersToServe.map(order => console.log(order))
   } catch (error) {
     console.error(error.message);
   }
@@ -106,7 +106,7 @@ const waiter4 = async () => {
       fetchOrders(API),
     ]);
 
-    console.log(ordersToServe);
+    ordersToServe.map(order => console.log(order))
   } catch (error) {
     console.error(error.message);
   }
