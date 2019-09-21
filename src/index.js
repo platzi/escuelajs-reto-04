@@ -37,12 +37,12 @@ waiter();
 waiter2();
 const waiter3 = async () => {
   try {
-  const respuesta = await orders(randomTime(), menu.hotdog, table[1]);
-  const respuesta2 = await orders(randomTime(), menu.pizza, table[1]);
-  const respuesta3 = await orders(randomTime(), menu.hotdog, table[1]);
-  console.log(respuesta);
-  console.log(respuesta2);
-  console.log(respuesta3);
+  const replyHotDog = await orders(randomTime(), menu.hotdog, table[1]);
+  const replyPizza = await orders(randomTime(), menu.pizza, table[1]);
+  const resplyHotdog = await orders(randomTime(), menu.hotdog, table[1]);
+  console.log(replyHotDog);
+  console.log(replyPizza);
+  console.log(resplyHotdog);
   }
   catch(error) {
     console.error(error);
