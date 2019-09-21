@@ -30,19 +30,28 @@ const menu = {
 };
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
+let min_prod_time = 100
+let max_prod_time = 800
+
 
 const waiter = () => {
-  orders(randomTime(100,800), menu.hamburgers, table[3])
+  orders(randomTime(min_prod_time,max_prod_time), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  orders(randomTime(min_prod_time,max_prod_time), menu.hotdog, table[0])
+    .then((res) => {
+      console.log(res)
+      orders(randomTime(min_prod_time,max_prod_time), menu.pizza, table[2])
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+    })
+    .catch((err) => console.error(err));
+
+    
+};
+
 waiter();
-
-/* function findProduct(product,menu_arr){
-  let products = Object.keys(menu)
-
-  console.log(products)
-}
-
-findProduct(menu) */
+waiter2();
