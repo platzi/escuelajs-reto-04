@@ -1,3 +1,5 @@
+require('isomorphic-fetch');
+
 const MAX = 1000
 const MIN = 8000
 
@@ -52,6 +54,29 @@ const waiter3 = async () => {
   }
 };
 
+const waiter4 = async () => {
+  const res = []
+
+  res[0] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
+  res[1] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
+  res[2] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
+  res[3] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
+
+
+  const responses = await Promise.all(res)
+
+  for(response of responses){
+    console.log(response)
+  }
+};
+
+const fetchOrders = async () => {
+  const jsonfood = await fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders')
+  const food = await jsonfood.json()
+  return food.data
+}
+
 waiter();
 waiter2();
 waiter3();
+waiter4();
