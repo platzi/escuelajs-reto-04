@@ -13,12 +13,23 @@ const menu = {
   pizza: 'Combo Pizza',
 };
 
+const constants = { 
+    MIN_VALUE : 1000, 
+    MAX_VALUE : 8000 
+};
+
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
+const randomTime = () => {
+  let randomNumber = Math.round(Math.random() * constants.MAX_VALUE)
+  return (randomNumber < constants.MIN_VALUE) ? constants.MIN_VALUE : randomNumber
+}
+
 const waiter = () => {
-  orders(6000, menu.hamburger, table[3])
+  orders(randomTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
 waiter();
+
