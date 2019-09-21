@@ -4,7 +4,6 @@ const orders = (time, product, table) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
-
   });
 }
 
@@ -22,6 +21,16 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+//waiter2
+const waiter2 = () => {
+  orders(randomTime(), menu.hotdog, table[0])
+    .then((res) => {
+      console.log(res)
+      return orders(randomTime(), menu.pizza, table[2])
+    }).then(res => console.log(res))
+    .catch((err) => console.error(err));
+}
+
 //Problema 1
 const randomTime = () => {
   let min = 1000
@@ -30,3 +39,4 @@ const randomTime = () => {
 }
 
 waiter();
+waiter2();
