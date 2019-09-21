@@ -30,4 +30,20 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  orders(randomTime(1000, 8000), menu.hotdog, table[0])
+    .then((res) => {
+      console.log(res);
+      orders(randomTime(1000, 8000), menu.pizza, table[2])
+        .then((res) => console.log(res))
+        .catch((err) => console.error(err));
+    })
+    .catch((err) => console.error(err));
+};
+
+const waiter3 = () => {
+  
+};
+
 waiter();
+waiter2();
