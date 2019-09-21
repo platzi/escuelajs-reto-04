@@ -16,9 +16,15 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(6000, menu.hamburger, table[3])
+  orders(varTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
+
+function varTime() {
+  var max = 8000
+  var min = 1000
+  return Math.floor(Math.random() * (max -min) + min)
+}
 
 waiter();
