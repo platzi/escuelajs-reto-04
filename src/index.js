@@ -41,6 +41,19 @@ const waiter2 = () => {
     
 };
 
+async function waiter3() {
+  console.log('calling')
+  try{
+    var orden1 = await orders(varTime(),menu.hotdog,table[1])
+    var orden2 = await orders(varTime(),menu.pizza,table[1])
+    var orden3 = await orders(varTime(),menu.hotdog,table[1])
+
+    console.log(`Delivering\n${orden1}\n${orden2}\n${orden3}`);
+  }catch (err){
+    console.log(err)
+  }
+}
+
 function varTime() {
   var max = 8000
   var min = 1000
