@@ -12,9 +12,13 @@ const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(
-        `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
-      );
+      try {
+        resolve(
+          `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
+        );
+      } catch (e) {
+        reject(`Lo sentimos :( ${e}`);
+      }
     }, time);
   });
 };
@@ -30,4 +34,16 @@ const waiter = () => {
     .catch(err => console.error(err));
 };
 
+const waiter2 = () => {
+  let time = randomTime();
+  orders(time, menu.hotdog, table[0])
+    .then(res => {
+      console.log(res);
+      time = randomTime();
+      orders(time, menu.pizza, table[2]).then(result => console.log(result));
+    })
+    .catch(err => console.error(err));
+};
+
 waiter();
+waiter2();
