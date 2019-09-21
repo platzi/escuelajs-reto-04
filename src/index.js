@@ -1,4 +1,4 @@
-const orders = (time, product, table) => {
+async function orders(time, product, table) {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
     if (!time || !product || !table) {
@@ -16,7 +16,7 @@ const orders = (time, product, table) => {
       );
     }, time);
   });
-};
+}
 
 const menu = {
   hamburger: "Combo Hamburguesa",
@@ -49,5 +49,15 @@ const waiter2 = () => {
     });
 };
 
+async function waiter3() {
+  let orden1 = await orders(randomTime(), menu.hotdog, table[1]);
+  let orden2 = await orders(randomTime(), menu.pizza, table[1]);
+  let orden3 = await orders(randomTime(), menu.hotdog, table[1]);
+  console.log(orden1);
+  console.log(orden2);
+  console.log(orden3);
+}
+
 waiter();
 waiter2();
+waiter3();
