@@ -39,9 +39,9 @@ const waiter2 = () => {
 
 const waiter3 = async () => {
   try {
-    const orden1 = await orders(randomTime(), menu.hotdog, table[1])
-    const orden2 = await orders(randomTime(), menu.pizza, table[1])
-    const orden3 = await orders(randomTime(), menu.hotdog, table[1])
+    let orden1 = await orders(randomTime(), menu.hotdog, table[1])
+    let orden2 = await orders(randomTime(), menu.pizza, table[1])
+    let orden3 = await orders(randomTime(), menu.hotdog, table[1])
     console.log(orden1)
     console.log(orden2)
     console.log(orden3)
@@ -54,8 +54,8 @@ const URL = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders'
 
 const getData = async (url) => {
   try {
-    const response = await fetch(url);
-    return await response.json();
+    let response = await fetch(url)
+    return response.json()
   } catch (error) {
     console.log(`Ocurrio un error ${error}`)
   }
@@ -63,16 +63,23 @@ const getData = async (url) => {
 
 const waiter4 = async () => {
   try {
-    // let data1 = await getData(URL)
-    // console.log(data1)
-    const orden1 = await getData(URL)
-    const orden2 = await getData(URL)
-    const orden3 = await getData(URL)
-    const orden4 = await getData(URL)
-    console.log(orden1.data)
-    console.log(orden2.data)
-    console.log(orden3.data)
-    console.log(orden4.data)
+    let data1  = await getData(URL)
+    let orden1 = await orders(randomTime(), data1.data, table[0])
+
+    let data2  = await getData(URL)
+    let orden2 = await orders(randomTime(), data2.data, table[1])
+
+    let data3  = await getData(URL)
+    let orden3 = await orders(randomTime(), data3.data, table[2])
+
+    let data4  = await getData(URL)
+    let orden4 = await orders(randomTime(), data4.data, table[3])
+    
+    console.log(orden1)
+    console.log(orden2)
+    console.log(orden3)
+    console.log(orden4)
+
   } catch (error) {
     console.log(`Ocurrio un error ${error}`)
   }
