@@ -57,11 +57,10 @@ const waiter3 = async () => {
 const waiter4 = async () => {
   const res = []
 
-  res[0] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
-  res[1] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
-  res[2] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
-  res[3] = orders(randomTime(MIN, MAX), fetchOrders(), table[1])
-
+  for(let i=0; i<4; i++){
+    food = await fetchOrders()
+    res[i] = orders(randomTime(MIN, MAX), food, table[1])
+  }
 
   const responses = await Promise.all(res)
 
