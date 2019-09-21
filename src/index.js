@@ -1,3 +1,25 @@
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
+
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders'
+const xhttp = new XMLHttpRequest()
+
+const fetchOrders = (urlApi, table) => {
+	return new Promise((resolve, reject) => {
+		xhttp.onreadystatechange = event => {
+			if (xhttp.readyState === 4) {
+				if (xhttp.status == 200) {
+					let menu = JSON.parse(xhttp.responseText)
+					resolve(`=== Pedido servido: ${menu.data}, para la ${table}`)
+				} else {
+					reject(`=== Lo sentimos pero el Pedido ${menu.data}, no se va poder servir en la ${table}`)
+				}
+			}
+		}
+		xhttp.open('GET', urlApi, true)
+		xhttp.send()
+	})
+}
+
 const orders = (time, product, table, state) => {
 	console.log(`### Orden: ${product} para ${table}`)
 	return new Promise((resolve, reject) => {
@@ -13,7 +35,9 @@ const orders = (time, product, table, state) => {
 	})
 }
 
-const randomState = () => Math.floor(Math.random() * Math.floor(2))
+
+const randomState = () => Math.floor(Math.random() * 2)
+const randomTable = () => Math.floor(Math.random() * 4)
 const randomTime = () => Math.floor(Math.random() * (1500 - 1000) + 1000)
 
 const menu = {
@@ -54,7 +78,22 @@ const waiterThree = async () => {
 		console.log(error)
 	}
 }
+const waiterFour = async () => {
+	try {
+		let orderOne = await fetchOrders(API, table[4])
+		let orderTwo = await fetchOrders(API, table[4])
+		let orderThree = await fetchOrders(API, table[4])
+		let orderFour = await fetchOrders(API, table[4])
+		console.log(orderOne)
+		console.log(orderTwo)
+		console.log(orderThree)
+		console.log(orderFour)
+	} catch (error) {
+		console.log(error)
+	}
+}
 
 waiter()
 waiterTwo()
 waiterThree()
+waiterFour()
