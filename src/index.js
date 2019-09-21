@@ -45,11 +45,17 @@ const waiter2 = () => {
 
 };
 async function waiter3() {
-
+let pedido1 = await orders(randomTime(), menu.hotdog, table[1]);
+let pedido2 = await orders(randomTime(), menu.pizza, table[1]);
+let pedido3 = await orders(randomTime(), menu.hotdog, table[1]);
+console.log(pedido1);
+console.log(pedido2);
+console.log(pedido3);
 };
 
 
 waiter();
 waiter2();
+waiter3();
 
 
