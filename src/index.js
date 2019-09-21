@@ -21,4 +21,42 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
-waiter();
+const waiter = () => {
+	console.log(`Atendiendo la  mesa ${table[3]}`)
+  orders(randomTime(1000, 8000), menu.hamburger, table[3])
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
+};
+
+const waiter2 = () => {
+	console.log(`Recoger los pedidos de las mesas ${table[0]} y ${table[2]}`)
+  orders(randomTime(1000, 8000), menu.hamburger, table[0])
+		.then((res) => {
+			console.log(res)
+			return orders(randomTime(1000, 8000), menu.hamburger, table[2])
+		}).then((res) => {
+			console.log(res)
+		})
+    .catch((err) => console.error(err));
+};
+
+const waiter3 = () => {
+	console.log(`Recoger el pedido de la mesa ${table[1]}`)
+  orders(randomTime(1000, 8000), menu.hamburger, table[1])
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
+};
+
+function randomTime(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const doOrders = async() => {
+	await waiter()
+	await waiter2()
+	await waiter3()
+}
+
+doOrders().catch(error => {
+	console.log('Error', error)
+})
