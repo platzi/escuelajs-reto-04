@@ -41,9 +41,19 @@ const waiter2 = () => {
     .catch((err) => console.error(err));
 };
 
-const waiter3 = () => {
-  
-};
+async function waiter3 () {
+  try{
+    let hotdog = await orders(randomTime(1000, 8000), menu.hotdog, table[1])
+    let pizza = await orders(randomTime(1000, 8000), menu.pizza, table[1])
+    let hotdog2 = await orders(randomTime(1000, 8000), menu.hotdog, table[1])
+    console.log(hotdog);
+    console.log(pizza);
+    console.log(hotdog2);
+  } catch(error){
+    errorCallback(error);
+  }
+}
 
-waiter();
-waiter2();
+//waiter();
+//waiter2();
+waiter3();
