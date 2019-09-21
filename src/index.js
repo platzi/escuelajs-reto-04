@@ -1,3 +1,13 @@
+"use strict";
+
+const fetch = require('node-fetch');
+
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+const config = {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' }
+}
+
 const randomTime = (min = 1000, max = 8000) =>
   Math.floor(Math.random() * (max - min) + min);
 
@@ -21,6 +31,25 @@ const orders = (time, product, table) => {
     }, time);
   });
 }
+
+const fetchOrders = async (
+    url_api,
+    config = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    }) => {
+  try {
+    const response = await fetch(url_api, config)
+
+    if (response.ok) {
+      return Promise.resolve(`Pedido servido: ${(await response.json()).data}`);
+    } else {
+      return Promise.reject(`Error fetching url: ${url_api}`);
+    }
+  } catch (error) {
+    console.error(error.message)
+  }
+};
 
 const menu = {
   hamburger: 'Combo Hamburguesa',
@@ -66,3 +95,19 @@ const waiter3 = async () => {
 };
 
 waiter3()
+
+const waiter4 = async () => {
+  try {
+    const ordersToServe = await Promise.all([
+        await fetchOrders(API),
+        await fetchOrders(API),
+        await fetchOrders(API)
+    ])
+
+    console.log(ordersToServe)
+  } catch (error) {
+    console.error(error.message)
+  }
+};
+
+waiter4()
