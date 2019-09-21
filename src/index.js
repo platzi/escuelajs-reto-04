@@ -22,4 +22,16 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  orders(ramdonTime(), menu.pizza, table[1])
+    .then(res => {
+      console.log(res)
+      return orders(ramdonTime(), menu.pizza, table[2])
+    })
+    .then(res => {
+      console.log(res)
+    })
+}
+
 waiter();
+waiter2();
