@@ -1,9 +1,16 @@
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    }, time);
+    if (time !== null) {
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      }, time);
+
+    } else {
+      reject("el tiempo no existe 😲")
+    }
   });
 }
 
@@ -23,7 +30,7 @@ const waiter = () => {
 };
 
 const waiter2 = () => {
-  orders(ramdonTime(), menu.pizza, table[1])
+  orders(ramdonTime(), menu.hotdog, table[0])
     .then(res => {
       console.log(res)
       return orders(ramdonTime(), menu.pizza, table[2])
@@ -33,5 +40,21 @@ const waiter2 = () => {
     })
 }
 
+const waiter3 = async () => {
+  try {
+    const pedido1 = await orders(ramdonTime(), menu.hotdog, table[1])
+    const pedido2 = await orders(ramdonTime(), menu.pizza, table[1])
+    const pedido3 = await orders(ramdonTime(), menu.hotdog, table[1])
+
+    console.log(pedido1)
+    console.log(pedido2);
+    console.log(pedido3);
+
+  } catch (error) {
+    console.log(`No pudimos entregar tu pedido porque ${error}`);
+  }
+}
+
 waiter();
 waiter2();
+waiter3();
