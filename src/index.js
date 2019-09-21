@@ -1,11 +1,17 @@
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
+    if (!time ||  !product || !table) {
+      reject("Incomplete order, please complete all arguments")
+    }
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
   });
 }
+
+}
+
 
 const menu = {
   hamburger: 'Combo Hamburguesa',
