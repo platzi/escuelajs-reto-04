@@ -1,4 +1,7 @@
 'use strict'
+
+const fetch = require('node-fetch');
+
 /**
  * Función que regresa un valor entre min y max
  */ 
@@ -67,7 +70,44 @@ const waiter3 = async () => {
 
 };
 
+
+const waiter4 = async () => {
+  console.log("Waiter 4: Resolviendo Pedido Especial ....")
+  async function hacer_4_pedidos(waiter_name, mesa, menu_ext){
+    const orden1 = await orders(randomTime(min_prod_time,max_prod_time), menu_ext.data, mesa, waiter_name)
+    const orden2 = await orders(randomTime(min_prod_time,max_prod_time), menu_ext.data, mesa, waiter_name)
+    const orden3 = await orders(randomTime(min_prod_time,max_prod_time), menu_ext.data, mesa, waiter_name)
+    const orden4 = await orders(randomTime(min_prod_time,max_prod_time), menu_ext.data, mesa, waiter_name)
+    console.log(` La orden especial está lista: 
+    ${orden1}
+    ${orden2}
+    ${orden3}
+    ${orden4}`)
+  }
+  const menu_externo_url = "https://us-central1-escuelajs-api.cloudfunctions.net/orders"
+  fetch(menu_externo_url)
+  .then(
+    (data) => {
+      return data.text()
+    }
+  )
+  .then(body => {
+      console.log(body)
+      let menu_externo = JSON.parse(body)
+      console.log(menu_externo)
+      hacer_4_pedidos("Waiter4",table[0], menu_externo)
+     return menu_externo
+
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  
+}
+
 //Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
 waiter();
 waiter2();
 waiter3();
+
+waiter4();
