@@ -16,16 +16,16 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(randomTime, menu.hamburger, table[3])
+  orders(randomTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
 const waiterTwo = () => {
-  orders(randomTime, menu.pizza, table[0])
+  orders(randomTime(), menu.pizza, table[0])
   .then((res => {
     console.log(res);
-    return orders(randomTime, menu.hotdog, table[2]);
+    return orders(randomTime(), menu.hotdog, table[2]);
   }))
   .then((res) => { console.log(res) })
   .catch((err) => {
@@ -33,7 +33,12 @@ const waiterTwo = () => {
   })
 }
 
-const randomTime = 6000;
+const randomTime = () => {
+  const min = 1000;
+  const max = 8000;
+  const time = Math.floor(Math.random() * (max - min)) + min;
+  return time;
+};
 
 waiter();
 waiterTwo();
