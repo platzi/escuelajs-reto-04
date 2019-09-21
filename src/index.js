@@ -16,6 +16,9 @@ const orders = (time, product, table) => {
   });
 }
 
+const onResponse = (response) => console.log(response);
+const onError = (error) => console.error(`Error: ${error}`); 
+
 const menu = {
   hamburger: 'Combo Hamburguesa',
   hotdog: 'Combo Hot Dogs',
@@ -26,8 +29,12 @@ const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
   orders(randomTime(), menu.hamburger, table[3])
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
+    .then(response => onResponse(response))
+    .catch(error => onError(error));
 };
+
+const waiter2 = () => {
+
+}
 
 waiter();
