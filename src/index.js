@@ -53,10 +53,13 @@ waiter2()
 const waiter3 = async () => {
   const _table = table[1]
   const order1 = await orders(randomTime(),menu.hotdog,_table)
-  console.log(order1)
+  
   const order2 = await orders(randomTime(),menu.pizza,_table)
-  console.log(order2)
+  
   const order3 = await orders(randomTime(),menu.hotdog,_table)
+  
+  console.log(order2)
+  console.log(order1)
   console.log(order3)
 }
 
