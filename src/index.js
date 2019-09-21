@@ -9,17 +9,21 @@ const table = ["Mesa 1", "Mesa 2", "Mesa 3", "Mesa 4", "Mesa 5"];
 // la orden que se va a servir y la mesa
 // tiempo, producto y a la mesa que se le va a enviar
 const orders = (time, product, table) => {
-  console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      try {
-        resolve(
-          `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
-        );
-      } catch (e) {
-        reject(`Lo sentimos :( ${e}`);
-      }
-    }, time);
+    if (product) {
+      console.log(`### Orden: ${product} para ${table}`);
+      setTimeout(() => {
+        try {
+          resolve(
+            `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
+          );
+        } catch (e) {
+          reject(`Lo sentimos :( ${e}`);
+        }
+      }, time);
+    } else {
+      reject(`Lo sentimos, pedido no existente para ${table}`);
+    }
   });
 };
 
