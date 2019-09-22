@@ -39,6 +39,8 @@ const indicationsWaiter3 = [
 
 const randomTime = () => Math.round(Math.random() * (8000 - 1000) + 1000)
 
+const getKeyByValue = (object, value) => Object.keys(object).find(key => object[key] === value)
+
 const errorHandler = (time, product, table) => {
   if (!time || !typeof time === 'int') {
     return '😞: Lo sentimos, no tenemos un tiempo para su pedido'
@@ -127,12 +129,23 @@ const finishNonPrioritizedAttendance = (message, priority, waiter) => {
 }
 
 const fetchOrders = async () => {
+  const indicationsWaiter4 = []
   try {
-    const res = await axios.get(API)
-    console.log(res.data)
-    finishNonPrioritizedAttendance(res.data, 3, 4)
+    for (let i = 0; i < 4; i++) {
+      const fetchedOrder = await axios.get(API)
+      const order = getKeyByValue(menu, fetchedOrder.data.data)
+      const indication = { table: 1, food: [] }
+      if (order) {
+        indication.food.push(order)
+      } else {
+        indication.food.push(fetchedOrder.data.data)
+      }
+      indicationsWaiter4.push(indication)
+    }
+    const res = await serveTable(indicationsWaiter4)
+    finishNonPrioritizedAttendance(res, 3, 4)
   } catch (error) {
-    finishNonPrioritizedAttendance(`😞: ${error.message}`, 3, 4)
+    finishNonPrioritizedAttendance(error.message || error, 3, 4)
   }
 }
 
