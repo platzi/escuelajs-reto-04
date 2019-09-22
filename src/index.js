@@ -1,3 +1,4 @@
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
@@ -79,3 +80,47 @@ async function waiter3() {
 };
 
 waiter3();
+
+// Cuarto Problema (Opcional)
+// Crea una función llamada "fetchOrders" que realice un llamado a la API de ordenes y una función llamada "waiter4" que se encargue de solicitar 4 pedidos que deban de ser entregados hasta que estén todos listos.
+
+// API: https://us-central1-escuelajs-api.cloudfunctions.net/orders
+// Utiliza Async/Await
+// Manejo de errores hamburger: 'Combo  hamburger: 'Combo Hamburguesa',mburguesa',
+
+
+const fetch = require('node-fetch');
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+
+async function fetchOrders(){
+  try {
+    const response = await fetch(API);
+    const data = await response.json();
+    return(data.data);
+  }
+  catch (err) {
+    console.error('Error de conexion para obtener orden ');
+    return
+  }
+}
+
+const RandomTable = () =>  table[Math.floor(Math.random() * 5)];
+
+async function waiter4(){
+  console.log(`Atendiendo...bot waiter4  atiende 6 pedidos..`)
+
+  let order = [];
+  for(let i = 0; i < 6;i++){
+    order.push(await fetchOrders())
+  }
+  let promises = order.map(menus => orders(randomTime(), menus, RandomTable()))
+  try{
+    let askOrders = await Promise.all(promises);
+    console.log(askOrders);
+  }
+  catch (err){
+    console.error(err);
+  }
+};
+
+waiter4();
