@@ -58,3 +58,24 @@ const waiter2 = () => {
 };
 
 waiter2();
+
+// Tercer Problema
+// Crea una función llamada "waiter3" que se encargue de recoger el pedido de la "Mesa 2" el pedido solo puede ser entregado hasta que todos los plantillos estén listos para ser servidos.
+// Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
+// Utiliza Async/Await
+// Manejo de errores
+// Utiliza la función de randomTime
+
+async function waiter3() {
+  console.log(`Atendiendo...bot waiter3`)
+  var orden_mesa2 = [menu.hotdog, menu.pizza, menu.hotdog]
+  var promesas = orden_mesa2.map(menus => orders(randomTime(), menus, table[1]))
+  try {
+    var Ask_Ordenes = await Promise.all(promesas);
+    console.log(Ask_Ordenes);
+  } catch (menu) {
+    console.log(menus)    
+  }  
+};
+
+waiter3();
