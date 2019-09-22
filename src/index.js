@@ -71,9 +71,32 @@ async function waiter3() {
   }
 }
 
+async function waiter4() {
+  const orders = await fetch(https://us-central1-escuelajs-api.cloudfunctions.net/orders);
+  // const orders = [
+  //   {
+  //     table: table[1],
+  //     order1: 'hotdog',
+  //     order2: 'pizza',
+  //     order3: 'hotdog',
+  //   },
+  // ];
+  // * Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
+  try {
+    response1 = await getOrders(randomTime(), orders[0].order1, orders[0].table)
+    response2 = await getOrders(randomTime(), orders[0].order2, orders[0].table)
+    response3 = await getOrders(randomTime(), orders[0].order3, orders[0].table)
+    console.log(response1);
+    console.log(response2);
+    console.log(response3);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 console.log(randomTime());
 
 // waiter();
 // waiter2();
-waiter3();
+// waiter3();
+waiter4();
