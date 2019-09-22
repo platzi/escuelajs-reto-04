@@ -10,6 +10,8 @@ const orders = (time, product, table) => {
   });
 }
 
+const API = `https://us-central1-escuelajs-api.cloudfunctions.net/orders`;
+const fetch = require("node-fetch");
 
 const randomTime = (min, max) =>{
   return Math.floor(Math.random() * (max - min)) + min;
@@ -54,6 +56,53 @@ async function waiter3 () {
   }
 }
 
-//waiter();
-//waiter2();
+const fetchOrders = async () => {
+  const response = await fetch(API);
+  let data;
+  if (response.ok) {
+    data = await response.json();
+  } else {
+    data = {
+      error: `HTTP-Error: ${response.status}`
+    };
+  }
+  return data;
+}
+
+async function waiter4 () {
+  try{
+    numberError=0;
+    const ordersOnline = await Promise.all ([
+      fetchOrders(), fetchOrders(), fetchOrders(), fetchOrders()
+    ]);
+    ordersOnline.forEach(item => {
+      if (item.error) {
+        console.log(`### ${item.error}`);
+        numberError++;
+      }
+    });
+    
+    if(numberError === 0){
+      const completeOrders = await Promise.all ([
+        orders(randomTime(1000, 8000), ordersOnline[0].data, table[1]),
+        orders(randomTime(1000, 8000), ordersOnline[1].data, table[1]),
+        orders(randomTime(1000, 8000), ordersOnline[2].data, table[1]),
+        orders(randomTime(1000, 8000), ordersOnline[3].data, table[1])
+      ])
+      console.log(completeOrders[0]);
+      console.log(completeOrders[1]);
+      console.log(completeOrders[2]);
+      console.log(completeOrders[3]);
+    }
+    
+  } catch(error){
+    console.log(`Hubo un error ${error.message}`);
+  }
+}
+
+
+
+waiter();
+waiter2();
 waiter3();
+waiter4();
