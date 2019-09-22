@@ -1,3 +1,6 @@
+const fetch = require('node-fetch');
+
+
 /* eslint-disable no-console */
 const getOrders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
@@ -73,30 +76,12 @@ async function waiter3() {
 
 async function waiter4() {
   const response = await fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders');
-  let data = await response.json()
-  console.log(data.data);
-  // const orders = [
-  //   {
-  //     table: table[1],
-  //     order1: 'hotdog',
-  //     order2: 'pizza',
-  //     order3: 'hotdog',
-  //   },
-  // ];
-  // * Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
-  // try {
-  //   response1 = await getOrders(randomTime(), orders[0].order1, orders[0].table)
-  //   response2 = await getOrders(randomTime(), orders[0].order2, orders[0].table)
-  //   response3 = await getOrders(randomTime(), orders[0].order3, orders[0].table)
-  //   console.log(response1);
-  //   console.log(response2);
-  //   console.log(response3);
-  // } catch (error) {
-  //   console.log(error.message);
-  // }
+  const data = await response.json();
+  const response1 = await getOrders(randomTime(), data.data, table[3]);
+  console.log(response1);
 }
 
-console.log(randomTime());
+// console.log(randomTime());
 
 // waiter();
 // waiter2();
