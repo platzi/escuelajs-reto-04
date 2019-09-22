@@ -68,19 +68,18 @@ const ordersFetch = (nOrder, table) => {
   return fetch(API);
 }
 
-const  waiter4 = () => {
+async function waiter4() {
   const lstOrders = [1,2,3,4];
-  const promiseOrders = lstOrders.map(order => ordersFetch(order,table[3])
-  .then(result => result.json()));
-  
-  Promise.all(promiseOrders)
-  .then( resultOrders => {
+  const promiseOrders = lstOrders.map(order => ordersFetch(order,table[3]).then(result => result.json()));
+
+  try {
+    const resultOrders = await Promise.all(promiseOrders);  
     resultOrders.forEach( (resultOrder) => {
       console.log(`=== Pedido servido: ${resultOrder.data}, para la ${table[3]}`);
     });
-  }).catch(function(err) {
-    console.log(`Algo salio mal con los pedidos`); 
-  });
+  } catch (error) {
+    console.log(`Algo salio mal con los pedidos`);
+  }
 }
 
 //waiter();
