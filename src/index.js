@@ -6,6 +6,7 @@ const MAX_TIME = .8;
 
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
+  
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
@@ -38,7 +39,7 @@ function randomTime() {
 
 
 //Reto 2
-function  waiter2() {
+const waiter2 = () => {
   const order1 = orders(randomTime(), menu.hamburger, table[0]);
   const order2 = orders(randomTime(), menu.pizza, table[2]);
 
@@ -51,37 +52,33 @@ function  waiter2() {
 
 
 //Reto 3
-async function  waiter3() {
+async function waiter3() {
   try {
-    
     const result1 = await orders(randomTime(), menu.hotdog, table[1]);
     console.log(result1); 
-
   } catch (error) {
     console.log(error);
-    
   }
 };
 
 
 //Reto 4
-function ordersFetch(nOrder, table) {
+const ordersFetch = (nOrder, table) => {
   console.log(`Orden ${nOrder} para la mesa ${table}`);
   return fetch(API);
 }
 
-function waiter4(){
+const  waiter4 = () => {
   const lstOrders = [1,2,3,4];
   const promiseOrders = lstOrders.map(order => ordersFetch(order,table[3])
   .then(result => result.json()));
   
   Promise.all(promiseOrders)
-  .then((resultOrders) => {
+  .then( resultOrders => {
     resultOrders.forEach( (resultOrder) => {
       console.log(`=== Pedido servido: ${resultOrder.data}, para la ${table[3]}`);
     });
-  })
-  .catch(function(err) {
+  }).catch(function(err) {
     console.log(`Algo salio mal con los pedidos`); 
   });
 }
