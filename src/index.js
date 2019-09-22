@@ -75,12 +75,15 @@ async function waiter3() {
 }
 
 async function waiter4() {
-  const response = await fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders');
-  const data = await response.json();
-  const response1 = await getOrders(randomTime(), data.data, table[3]);
-  console.log(response1);
+  try {
+    const response = await fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders');
+    const data = await response.json();
+    const response1 = await getOrders(randomTime(), data.data, table[3]);
+    console.log(response1);
+  } catch (error) {
+    console.log('Error Message:', error.message);
+  }
 }
-
 // console.log(randomTime());
 
 // waiter();
