@@ -1,4 +1,8 @@
-const randomTime = (min, max) => (Math.floor(Math.random()* (max - min) + min));
+const maxTime = 8000;
+const minTime = 1000;
+
+
+const randomTime = () => (Math.floor(Math.random()* (maxTime - minTime) + minTime));
 
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
@@ -20,23 +24,27 @@ const menu = {
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
+
+
+
+
 const waiter = () => {
-  orders(randomTime(1000,8000), menu.hamburger, table[3])
+  orders(randomTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 const waiter2 = () => {
-  orders(randomTime(1000,8000), menu.hotdog, table[0])
+  orders(randomTime(), menu.hotdog, table[0])
     .then((res) => {
       console.log(res);
-      return orders(randomTime(1000,8000), menu.pizza, table[2]);
+      return orders(randomTime(), menu.pizza, table[2]);
     })
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 async function waiter3(){
   let order = [ menu.hotdog, menu.pizza, menu.hotdog];
-  let promises = order.map(menus => orders(randomTime(1000,8000), menus, table[1]))
+  let promises = order.map(menus => orders(randomTime(), menus, table[1]))
   try{
     let askOrders = await Promise.all(promises);
     console.log(askOrders);
