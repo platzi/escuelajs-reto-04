@@ -4,8 +4,8 @@ const orders = (time, product, table) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
-    if (!product) {
-      reject(`No se tiene productos`)
+    if (!time || !product || !table) {
+      reject(new Error(`No se puede procesar falta un requerimiento..`))
     }
   });
 }
@@ -30,7 +30,8 @@ function randomTime() {
 }
 
 const waiter = () => {
-  orders(randomTime(), menu.hotdog, table[3])
+  console.log(`Atendiendo...bot waiter`)
+  orders(randomTime(), menu.hamburger, table[3])
     .then((respuesta) => console.log(respuesta))
     .catch((err) => console.error(err));
 };
@@ -38,3 +39,22 @@ const waiter = () => {
 
 waiter();
 
+// Segundo Problema
+// Crea una función llamada "waiter2" que se encargue de recoger dos pedidos, uno de la "Mesa 1" y otro de la "Mesa 3".
+
+// Pedido "Mesa 1": Combo Hotdog Pedido "Mesa 3": Combo Pizza
+
+// Utiliza Promesas Encadenadas
+// Utiliza la función de randomTime
+const waiter2 = () => {
+  console.log(`Atendiendo...bot waiter2`)
+  orders(randomTime(), menu.hotdog, table[0])
+    .then((respuesta) => {
+      console.log(respuesta);
+      return orders(randomTime(), menu.pizza,table[2]);
+    })
+    .then((respuesta) => console.log(respuesta))
+    .catch((err) => console.error(err));
+};
+
+waiter2();
