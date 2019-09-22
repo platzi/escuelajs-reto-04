@@ -1,4 +1,6 @@
-const orders = (time, product, table) => {
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const xhttp = new XMLHttpRequest()
+const API_ORDERS = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
 
 const menu = {
     hamburger: 'Combo Hamburguesa',
@@ -19,7 +21,7 @@ const orders = (time, product, table, waiter) => {
     });
 }
 
-const randomTime = (min, max) => {
+const fetchOrders = (url, time, table, waiter) => {
     return new Promise((resolve, reject) => {
         xhttp.onreadystatechange = () => {
             response = JSON.parse(xhttp.responseText)
@@ -73,8 +75,29 @@ const waiter3 = async () => {
     }
 };
 
+const waiter4 = async api => {
+    const time = randomTime()
+    try {
+        console.log("Decidiendo pedido...")
+        const order1 = await fetchOrders(api, time, table[4], 4)
+        console.log("Decidiendo pedido...")
+        const order2 = await fetchOrders(api, time, table[4], 4)
+        console.log("Decidiendo pedido...")
+        const order3 = await fetchOrders(api, time, table[4], 4)
+        console.log("Decidiendo pedido...")
+        const order4 = await fetchOrders(api, time, table[4], 4)
+        console.log(order1)
+        console.log(order2)
+        console.log(order3)
+        console.log(order4)
+    } catch (err) {
+        console.log(`Something is wrong!! | ${err}`)
+    }
+
+}
 waiter();
 waiter2();
 waiter3();
+waiter4(API_ORDERS)
 
 
