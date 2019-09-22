@@ -34,5 +34,17 @@ const waiter2 = () => {
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
+async function waiter3(){
+  let order = [ menu.hotdog, menu.pizza, menu.hotdog];
+  let promises = order.map(menus => orders(randomTime(1000,8000), menus, table[1]))
+  try{
+    let askOrders = await Promise.all(promises);
+    console.log(askOrders);
+  }catch(menus){
+    console.error(menus)
+  } 
+};
+
 waiter();
 waiter2();
+waiter3();
