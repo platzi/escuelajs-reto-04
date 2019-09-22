@@ -13,4 +13,4 @@ Usuario Platzi:th3_bu6
   - [X] Primer problema
   - [X] Segundo problema
   - [X] Tercer problema
-  - [ ] Cuarto Problema (Opcional)
+  - [X] Cuarto Problema (Opcional)
