@@ -56,11 +56,6 @@ async function waiter3() {
   }
 } 
 
-waiter();
-waiter2();
-waiter3();
-
-
 const fetchOrders = () => {
   return new Promise((resolve) => {
     resolve(fetch(API)
@@ -92,4 +87,7 @@ async function waiter4() {
   }
 }
 
+waiter();
+waiter2();
+waiter3();
 waiter4();
