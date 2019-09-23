@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const orders = (time, product, table) => {
     return new Promise((resolve, reject) => {
         if (!tables.includes(table)) {
@@ -67,4 +69,48 @@ const waiter3 = async (mesa_pedido, pedidos) => {
 const mesa = 2
 const ordenes = [menu.hotdog, menu.pizza, menu.hotdog]
 
-waiter3(mesa, ordenes)
+// waiter3(mesa, ordenes)
+
+const API = `https://us-central1-escuelajs-api.cloudfunctions.net/orders`
+const fetchOrders = async () => {
+    return new Promise((resolve, reject) => {
+        fetch(API)
+            .then(res => res.json())
+            .then(body => resolve(body.data))
+            .catch(rej => reject(`Ocurrió un error al obtener la orden: ${rej}`))
+    });
+};
+
+const waiter4 = async (peticiones, numeroMesa) => {
+
+    let pedidos = {}
+    let ordenesAServir = []
+    let existentes = 0
+
+    for (let i = 0; i < peticiones; i++) {
+        pedidos[i] = await fetchOrders().then(r => r)
+
+        if (!Object.values(menu).includes(pedidos[i])) {
+            console.log(`Por el momento no contamos con ${pedidos[i]}`)
+        } else {
+            ordenesAServir[existentes] = pedidos[i]
+            existentes++
+        }
+    }
+
+    let totalPedidos = []
+
+    ordenesAServir.forEach((orden) => {
+        totalPedidos.push(orders(randomTime(), orden, tables[numeroMesa]))
+    })
+
+    const responses = Promise.all(totalPedidos)
+
+    await responses
+        .then(response => response.forEach((res) => console.log(res)))
+        .catch(err => console.log(err)
+        )
+}
+
+waiter4(4, 4)
+
