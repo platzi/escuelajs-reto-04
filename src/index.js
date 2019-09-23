@@ -1,6 +1,3 @@
-
-
-
 function randomTime(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -36,7 +33,6 @@ const waiter2 = (orders2, orders3) => {
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
   return waiter3()
-   
 };
 
 const waiter3 = (orders4, orders5, orders6) => {
