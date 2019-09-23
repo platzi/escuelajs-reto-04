@@ -13,7 +13,7 @@ const menu = {
   pizza: 'Combo Pizza',
 };
 
-const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
+const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa nueva'];
 
 const waiter = () => {
   orders(6000, menu.hamburger, table[3])
@@ -64,10 +64,11 @@ async function waiter3() {
   catch { error => console.log( `buuu esto se murio :( ${error}`)
   }
 }
-// aqui aplique el settimeout por que dice el reto pero no entiendo para que, no se si estoy haciendo mal mi codigo por que se tarda en resolver las promesas,
-// y siento que ponerle el settime no lo sigue, o ese tiempo que estoy esperando es el tiempo de la petición o del set :s 
+// aqui aplique el settimeout por que dice el reto pero no entiendo para que, no se si estoy haciendo mal mi codigo por que se tarda en resolver las promesas,que me imagino es 
+// el cumulo de los tiempos en lo que se preparan los platillos con el timeout de la fincion orders pero este implementado en las funcion waiter 3 como se debe aplicar?
+// :/ no entiendo eso, perdon u.u 
 
- waiter3();
+ // waiter3();
 
 // 4rd OPTIONAL CHALLENGE:
 
@@ -75,7 +76,19 @@ async function fetchOrders(){
   const url = ' https://us-central1-escuelajs-api.cloudfunctions.net/orders';
   const result = await fetch(url)
   const data = await result.json()
-  console.log(data)
-}
-fetchOrders()
+  const combo = data.data
+  return combo;
+} // cuando hago console.log de esto si me sale las data como en string 
+//  me sale por ejemplo : combo nachos.
+
+// entonceeeees ..... al iniciar a experimentar con la segunda parte...
+
+  const order4 = orders(randomTime(),fetchOrders(),table[4])
+  .then(result => console.log(result))
+ // cuando logueo eso, llamando a la funcionn fetchOrders como parametro...
+ // me sale: " === Pedido servido: [object Promise], tiempo de preparación 3352ms para la Mesa nueva "
+ // [object Promise]: por que que aqui me regresa que es promesa si arriba ya me retornaba un string :( ???????????
+
+ // bueno bye, muchas gracias.
+// perdón si estoy muy básica.
 
