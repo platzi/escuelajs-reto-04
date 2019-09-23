@@ -35,6 +35,14 @@ const waiter2 = () => {
     .catch((err) => console.err(err))
 }
 
+async function waiter3() {
+  orders(randomTime(), menu.hotdog, table[1])
+  orders(randomTime(), menu.pizza, table[1])
+  orders(randomTime(), menu.hotdog, table[1])
+  var result = await orders()
+  console.log(result)
+}
+
 const randomTime = (time) => {
   return Math.floor(Math.random() * (8000 - 1000)) + 1000;
 }
@@ -42,3 +50,4 @@ const randomTime = (time) => {
 
 waiter();
 waiter2();
+waiter3();
