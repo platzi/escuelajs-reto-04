@@ -1,3 +1,13 @@
+const fetch = require('node-fetch');
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+
+const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
+
+const menu = {
+  hamburger: 'Combo Hamburguesa',
+  hotdog: 'Combo Hot Dogs',
+  pizza: 'Combo Pizza',
+};
 
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
@@ -11,19 +21,8 @@ const orders = (time, product, table) => {
   });
 }
 
-const menu = {
-  hamburger: 'Combo Hamburguesa',
-  hotdog: 'Combo Hot Dogs',
-  pizza: 'Combo Pizza',
-};
-
-const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 
-// Primer problema
-// Crea una función llamada "randomTime" que te permita retornar un valor en mili segundos de forma aleatoria en el rango de 1000ms hasta 8000ms.
-// Completa la función "orders" manejando el reject.
-// Utiliza la función de randomTime
 function randomTime() {
   var min = 1000, max = 8000;
   var rand = Math.floor((Math.random() * (max - min + 1)) + min);
@@ -37,16 +36,11 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
-
+// Primer problema
 waiter();
 
 // Segundo Problema
-// Crea una función llamada "waiter2" que se encargue de recoger dos pedidos, uno de la "Mesa 1" y otro de la "Mesa 3".
 
-// Pedido "Mesa 1": Combo Hotdog Pedido "Mesa 3": Combo Pizza
-
-// Utiliza Promesas Encadenadas
-// Utiliza la función de randomTime
 const waiter2 = () => {
   console.log(`Atendiendo...bot waiter2`)
   orders(randomTime(), menu.hotdog, table[0])
@@ -61,11 +55,6 @@ const waiter2 = () => {
 waiter2();
 
 // Tercer Problema
-// Crea una función llamada "waiter3" que se encargue de recoger el pedido de la "Mesa 2" el pedido solo puede ser entregado hasta que todos los plantillos estén listos para ser servidos.
-// Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
-// Utiliza Async/Await
-// Manejo de errores
-// Utiliza la función de randomTime
 
 async function waiter3() {
   console.log(`Atendiendo...bot waiter3`)
@@ -82,15 +71,8 @@ async function waiter3() {
 waiter3();
 
 // Cuarto Problema (Opcional)
-// Crea una función llamada "fetchOrders" que realice un llamado a la API de ordenes y una función llamada "waiter4" que se encargue de solicitar 4 pedidos que deban de ser entregados hasta que estén todos listos.
 
-// API: https://us-central1-escuelajs-api.cloudfunctions.net/orders
-// Utiliza Async/Await
-// Manejo de errores hamburger: 'Combo  hamburger: 'Combo Hamburguesa',mburguesa',
-
-
-const fetch = require('node-fetch');
-const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+const RandomTable = () =>  table[Math.floor(Math.random() * 5)];
 
 async function fetchOrders(){
   try {
@@ -103,8 +85,6 @@ async function fetchOrders(){
     return
   }
 }
-
-const RandomTable = () =>  table[Math.floor(Math.random() * 5)];
 
 async function waiter4(){
   console.log(`Atendiendo...bot waiter4  atiende 6 pedidos..`)
