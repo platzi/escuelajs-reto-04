@@ -1,4 +1,6 @@
-function randomTime(min, max) {
+function randomTime() {
+  const max = 8000
+  const min = 1000
   return Math.round(Math.random() * (max - min) + min);
 }
 
@@ -20,27 +22,32 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(randomTime(1000, 8001), menu.hamburger, table[3])
+  orders(randomTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
     return waiter2()
 };
 const waiter2 = (orders2, orders3) => {
-  orders(randomTime(1000, 8001), menu.hotdog, table[0])
-    .then((res) => {console.log(res)} )
+  orders(randomTime(), menu.hotdog, table[0])
+    .then((res) => console.log(res))
     .catch((err) => console.error(err));
-  orders(randomTime(1000, 8001), menu.pizza, table[2])
+  orders(randomTime(), menu.pizza, table[2])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
   return waiter3()
 };
 
-const waiter3 = (orders4, orders5, orders6) => {
-  orders(randomTime(1000, 8001), menu.hotdog, table[1])
-  .then((res) => {console.log(res); return orders(randomTime(1000, 8001), menu.pizza, table[1])}) 
-  .then((res) => {console.log(res); return orders(randomTime(1000, 8001), menu.hotdog, table[1])})
-  .then((res) => console.log(res))
-  .catch((err) => console.error(err));
-
+async function  waiter3  (orders4, orders5, orders6) {
+  try{
+    const order4 = await orders(randomTime(), menu.hotdog, table[1])
+    const order5 = await orders(randomTime(), menu.pizza, table[1])
+    const order6 = await orders(randomTime(), menu.hotdog, table[1])
+    console.log(order4);
+    console.log(order4);
+    console.log(order4);
+  }
+  catch(err) {
+    console.error(err)
+  }
 }
 waiter();
