@@ -36,11 +36,17 @@ const waiter2 = () => {
 }
 
 async function waiter3() {
-  orders(randomTime(), menu.hotdog, table[1])
-  orders(randomTime(), menu.pizza, table[1])
-  orders(randomTime(), menu.hotdog, table[1])
-  var result = await orders()
-  console.log(result)
+  let order = [
+    orders(randomTime(), menu.hotdog, table[1]),
+    orders(randomTime(), menu.pizza, table[1]),
+    orders(randomTime(), menu.hotdog, table[1])
+  ]
+  try {
+    let result = await Promise.all(order)
+    console.log(result)
+  } catch (order) {
+    console.error('algo salio mal')
+  }
 }
 
 const randomTime = (time) => {
