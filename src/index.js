@@ -18,60 +18,116 @@ const randomOrder = (min, max) => {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 //Información de la mesa del waiter1.
-const tableID = 3;
+const waiter1TableInfo = {
+  tableID: 3
+}
 
-//Información de la o las mesas del waiter2
+//Información de las mesas del waiter2.
 const waiter2TableInfo = {
-  numOfTables: 2, //cantidad de mesas del waiter2.
   tableID: [0, 2] //id, o id´s de la mesa, o mesas.
 };
 
-const orders = (time, product, table) => {
-  console.log(`### Orden: ${product} para ${table}`);
+//Información de las mesas del waiter3.
+const waiter3TableInfo = {
+  tableID: 1
+}
+
+const orders = (waiter, time, product, table) => {
+  console.log(`${waiter} (### Orden): ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    if(tableID == undefined || tableID > 4){
-      reject('No es valida la información de la mesa')
+    if(waiter1TableInfo.tableID == undefined || waiter1TableInfo.tableID > 4){
+      reject('No es valida la información de mesa del Waiter #1')
+    } else if(waiter2TableInfo.tableID[0] == undefined || waiter2TableInfo.tableID[0] > 4){
+      reject('No es valida la información de mesa del Waiter #2') 
+    } else if (waiter2TableInfo.tableID[1] == undefined || waiter2TableInfo.tableID[1] > 4){
+      reject('No es valida la información de mesa del Waiter #2') 
+    } else if(waiter3TableInfo.tableID == undefined || waiter3TableInfo.tableID > 4){
+      reject('No es valida la información de mesa del Waiter #3') 
     } else {
       setTimeout(() => {
-        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time/1000} segundos para la ${table}`);
+        resolve(`${waiter} Pedido servido: ${product}, tiempo de preparación ${time/1000} segundos para la ${table}`);
       }, time);
     }
   });
 }
 
-const waiter = () => {
-  console.log('Waiter #1')
-  orders(randomTime(1000, 8000), menu[randomOrder(1, 4)], table[tableID])
+const waiter1 = () => {
+  let waiter = 'Waiter #1'
+  let tableInfo = table[waiter1TableInfo.tableID]
+  orders(waiter, randomTime(1000, 8000), menu[randomOrder(1, 4)], tableInfo)
     .then((res) => console.log(res))
     .catch((rej) => console.error(rej));
 };
 
-//NOTA DEL AUTOR: no se si esto se pueda considerar promesas encadenadas.
-/* 
-const waiter2 = () => {
-  console.log('Waiter #2')
-  for(let i = 1, i2 = 0; i <= waiter2TableInfo.numOfTables; i++, i2++){
-    orders(randomTime(1000, 8000), menu[randomOrder(1, 4)], table[waiter2TableInfo.tableID[i2]])
-    .then((res) => console.log(res))
-    .catch((rej) => console.error(rej));
-  }
-}; */ 
+waiter1();
 
 const waiter2 = () => {
-  console.log('Waiter #2')
-  orders(randomTime(1000, 8000), menu[randomOrder(1, 4)], table[waiter2TableInfo.tableID[0]])
+  let waiter = 'Waiter #2'
+  let tableInfo = table[waiter2TableInfo.tableID[0]]
+  orders(waiter, randomTime(1000, 8000), menu[randomOrder(1, 4)], tableInfo)
     .then((res) => {
       console.log(res);
-      return orders(randomTime(1000, 8000), menu[randomOrder(1, 4)], table[waiter2TableInfo.tableID[1]]);
+      let tableInfo = table[waiter2TableInfo.tableID[1]]
+      return orders(waiter, randomTime(1000, 8000), menu[randomOrder(1, 4)], tableInfo);
     }).catch((rej) => console.error(rej))
     .then((res) => console.log(res))
     .catch((rej) => console.error(rej))
 }
 
-waiter();
 waiter2();
 
+async function waiter3() {
+  let waiter = 'Waiter #3'
+  let tableInfo = table[waiter3TableInfo.tableID]
+  let order1 = await orders(waiter, randomTime(1000, 8000), menu[randomOrder(1, 4)], tableInfo);
+  let order2 = await orders(waiter, randomTime(1000, 8000), menu[randomOrder(1, 4)], tableInfo);
+  let order3 = await orders(waiter, randomTime(1000, 8000), menu[randomOrder(1, 4)], tableInfo);
+  try {
+    console.log(order1);
+    console.log(order2);
+    console.log(order3);
+  }
+  catch {
+    console.log('No es valida la información de mesa del Waiter #3')
+  }
+}
 
+waiter3();
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+var API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+var xhttp = new XMLHttpRequest();
+
+function fetchOrders(url_api, data){
+  return new Promise((resolve, reject) => {
+    xhttp.onreadystatechange = (event) =>{
+      if (xhttp.readyState === 4 && xhttp.status == 200){
+        resolve(JSON.parse(xhttp.responseText), data);
+      } else return reject(url_api);
+    }
+    xhttp.open('GET', url_api, false);
+    xhttp.send();
+  })  
+}
+
+async function waiter4(){
+  let order1 = await fetchOrders(API)
+  let order2 = await fetchOrders(API)
+  let order3 = await fetchOrders(API)
+  let order4 = await fetchOrders(API)
+  try {
+    console.log('Waiter #4 entrega de pedidos solicitados al servicio API');
+    console.log(`- ${order1.data}`);
+    console.log(`- ${order2.data}`);
+    console.log(`- ${order3.data}`);
+    console.log(`- ${order4.data}`);
+  }
+  catch {
+    console.error('Hubo algun problema al solicitar su pedido al servicio API');
+  }
+}
+
+waiter4();
