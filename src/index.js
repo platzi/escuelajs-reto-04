@@ -3,11 +3,15 @@ const randomTime = () => {
 };
 
 const orders = (time, product, table) => {
-  console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    }, time);
+    if (time && product && table) {
+      console.log(`### Orden: ${product} para ${table}`);
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      }, time);
+    } else {
+      reject('Favor de brindar los datos necesarios para solicitar la orden')
+    }
   });
 }
 
@@ -26,20 +30,20 @@ const waiter = () => {
 };
 
 const waiter2 = () => {
-  orders(randomTime(), menu.pizza, table[0])
+  orders(randomTime(), menu.hotdog, table[0])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
   
-  orders(randomTime(), menu.hotdog, table[2])
+  orders(randomTime(), menu.pizza, table[2])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 }
 
 const waiter3 = async () => {
   try {
-    const dish1 = await orders(randomTime(), menu.hamburger, table[1]);
-    const dish2 = await orders(randomTime(), menu.hotdog, table[1]);
-    const dish3 = await orders(randomTime(), menu.pizza, table[1]);
+    const dish1 = await orders(randomTime(), menu.hotdog, table[1]);
+    const dish2 = await orders(randomTime(), menu.pizza, table[1]);
+    const dish3 = await orders(randomTime(), menu.hotdog, table[1]);
     console.log(`Se sirve en ${table[1]}:
       ${dish1}
       ${dish2}
