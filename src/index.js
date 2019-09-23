@@ -78,17 +78,24 @@ async function fetchOrders(){
   const data = await result.json()
   const combo = data.data
   return combo;
-} // cuando hago console.log de esto si me sale las data como en string 
-//  me sale por ejemplo : combo nachos.
+} 
+// opcion 1:
+async function waiter4(){
+  try {
+    const listOfCombos = [];
 
-// entonceeeees ..... al iniciar a experimentar con la segunda parte...
-
-  const order4 = orders(randomTime(),fetchOrders(),table[4])
-  .then(result => console.log(result))
- // cuando logueo eso, llamando a la funcionn fetchOrders como parametro...
- // me sale: " === Pedido servido: [object Promise], tiempo de preparación 3352ms para la Mesa nueva "
- // [object Promise]: por que que aqui me regresa que es promesa si arriba ya me retornaba un string :( ???????????
-
- // bueno bye, muchas gracias.
-// perdón si estoy muy básica.
+    for(let i = 0; i < 4; i++){
+      const combo = await fetchOrders(i)
+      listOfCombos.push(combo);
+    }
+    const optionfood = listOfCombos.map(dish => dish);
+  
+    orders(randomTime(),optionfood,table[4])
+    .then((res) => console.log(res))
+  }
+  catch {
+    error => console.log(`upps, there is a ${error} here`)
+  }
+}
+waiter4();
 
