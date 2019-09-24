@@ -7,8 +7,12 @@ class index {
 	htmlTable:HTMLDivElement;
 	aAllPedido:any[] = [];
 	private nTagConsole:number=0;
-    
-    constructor(){
+	
+	/**
+	 *Creates an instance of index.
+	 * @memberof index
+	 */
+	constructor(){
 
         this.fonditaLoop = new FonditaLoop();
         this.htmlTable = htmlTable;
@@ -53,12 +57,22 @@ class index {
 
     };
 	
+	/**
+	 *method to process the table 2
+	 *
+	 * @memberof index
+	 */
 	waiter3(){
 
 		let vTableNum1:number = 1;
 		this.processOrderAsync( this.aAllPedido[ vTableNum1 ] , vTableNum1 );
 	};
 
+	/**
+	 *this method is for create the people in each table 
+	 *
+	 * @memberof index
+	 */
 	async RestaurantOpen(){
 
 		let myMenuIs    		= await this.fonditaLoop.getOnlyMenu();
@@ -92,7 +106,12 @@ class index {
 
 	};
 
-    createTable(){
+	/**
+	 * This method is for create the tables
+	 *
+	 * @memberof index
+	 */
+	createTable(){
 
         let vHTML:string		=``;
         let vElement			= document.createElement("div");
@@ -140,6 +159,12 @@ class index {
             this.htmlTable.appendChild(vElement);
 	};
 	
+	/**
+	 *This method is for create the icon people
+	 *
+	 * @param {*} aInfo
+	 * @memberof index
+	 */
 	pushIconTable( aInfo:any ){
 		//let list 	= aInfo.list;
 		let id		= aInfo.id;
