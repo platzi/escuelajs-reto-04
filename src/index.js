@@ -3,8 +3,12 @@ const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para la ${table}`);
   return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-      }, time);     
+        resolve(
+          `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
+        );
+        reject(`== Paila, se le demora ==`);
+      }, time);
+               
   });
 }
 
