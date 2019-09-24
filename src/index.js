@@ -39,7 +39,7 @@ const fetchOrders = (table)  => {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = (event) => {
       if (xhttp.readyState === 4) {
-          if (xhttp.status == 200) {
+          if (xhttp.status === 200) {
             product = JSON.parse(xhttp.responseText)
               console.log(`### Orden: ${product.data} para ${table}`);
               setTimeout(() => {
@@ -77,42 +77,29 @@ const waiter2 = () =>{
 }
 
 async function waiter3(){
-  await orders(menu.hotdog,table[1])
-        .then((results) => orden1 = results)
-        .catch((error) => console.error(error));
-  await orders(menu.pizza,table[1])
-        .then((results) => orden2 =results)
-        .catch((error) => console.error(error));
-  await orders(menu.hotdog,table[1])
-        .then((results) => {
-          console.log(orden1)
-          console.log(orden2)
-          console.log(results)
-    })  
-          .catch((error) => console.error(error));
+ let order1 =  await orders(menu.hotdog,table[1])
+ let order2 = await orders(menu.pizza,table[1])
+ let order3 =  await orders(menu.hotdog,table[1])
+
+ console.log(order1)
+ console.log(order2)
+ console.log(order3)
 }
 
 async function waiter4() {
-  await fetchOrders(table[4])
-        .then((results) => orden1 = results)
-        .catch((error) => console.error(error));
-  await fetchOrders(table[4])
-        .then((results) => orden2 = results)
-        .catch((error) => console.error(error));
-  await fetchOrders(table[4])
-        .then((results) => orden3 = results)
-        .catch((error) => console.error(error));
-  await fetchOrders(table[4])
-        .then((results) => {
-          console.log(orden1)
-          console.log(orden2)
-          console.log(orden3)
-          console.log(results)
-        })
-        .catch((error) => console.error(error));
+let order1 =  await fetchOrders(table[4])
+let order2 =  await fetchOrders(table[4])
+let order3 =  await fetchOrders(table[4])
+let order4 =  await fetchOrders(table[4])
+
+console.log(order1)
+console.log(order2)
+console.log(order3)
+console.log(order4)
+
 } 
 
-waiter();
-waiter2();
-waiter3();
+waiter()
+waiter2()
+waiter3()
 waiter4()
