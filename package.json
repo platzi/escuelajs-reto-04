@@ -4,7 +4,7 @@
   "description": "Reto 4 Septiembre 21: Curso de Fundamentos de JavaScript",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "parcel index.html assets/"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/platzi/escuelajs-reto-04/issues"
   },
-  "homepage": "https://github.com/platzi/escuelajs-reto-04#readme"
+  "homepage": "https://github.com/platzi/escuelajs-reto-04#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.6.3"
+  }
+ 
+,"browserslist":[
+  "last 1 Chrome version"
+]
 }
