@@ -7,6 +7,12 @@ Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 npm run start
 ```
 
+Seleccionar la opción de 1 a 4, de acuerdo al siguiente menú: 
+1. Primer problema.
+2. Segundo problema.
+3. Tercer problema.
+4. Cuarto problema
+
 ### Primer problema
 Crea una función llamada "randomTime" que te permita retornar un valor en mili segundos de forma aleatoria en el rango de 1000ms hasta 8000ms.
 
