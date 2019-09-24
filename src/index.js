@@ -35,6 +35,18 @@ const fetchOrders = () => {
     });
 };
 
+const createPreOrders = (tables) => {
+  if(tables.length <= 0) return new Error('Do not are tables');
+  return tables.map(async (table) => {
+    try {
+      const res = await fetchOrders();
+      return { dish: res.data, table }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+};
+
 const menu = {
   hamburger: 'Combo Hamburguesa',
   hotdog: 'Combo Hot Dogs',
