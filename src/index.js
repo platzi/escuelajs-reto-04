@@ -46,35 +46,16 @@ const wainter2 = () => {
     .catch((err) => console.error(err))
 }
 
-//wainter2()
-
-const waiter3__1 = () => {
-  orders(preparacion.hotdog,menu.hotdog,table[1])
-   .then((res) => console.log(res))
-   .catch((err) => console.log(err))
-}
-
-const waiter3__2 = () => {
-  orders(preparacion.pizza,menu.pizza,table[1])
-   .then((res) => console.log(res))
-   .catch((err) => console.log(err))
-}
-
-const waiter3__3 = () => {
-  orders(preparacion.hotdog,menu.hotdog,table[1])
-   .then((res) => console.log(res))
-   .catch((err) => console.log(err))
-}
-
 const pedido = async() => {
   try {
-    const comida1 = waiter3__1()
-    const comida2 = await waiter3__2(comida1)
-    const comida3 = await waiter3__3(comida2)
-      return await (comida3)
+    const comida1 = await orders(preparacion.hotdog,menu.hotdog,table[1])
+    const comida2 = await orders(preparacion.pizza,menu.pizza,table[1])
+    const comida3 = await orders(preparacion.hotdog,menu.hotdog,table[1])
+      return [comida3,comida2,comida1]
   } catch (error) {
     console.log((error) => console.log(error))
   }
 }
 
-pedido().then(entrega => console.log(entrega))
+pedido()
+  .then(entrega => console.log(entrega))
