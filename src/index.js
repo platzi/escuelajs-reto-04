@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const randomTime = () => {
   const min = 1000;
   const max = 8000;
@@ -21,6 +23,16 @@ const generateOrders = (preOrders) => {
     waitOrders.push(orders(randomTime(), order.dish, order.table));
   });
   return waitOrders;
+};
+
+const fetchOrders = () => {
+  return fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders')
+    .then(res => {
+      return res.json();
+    })
+    .catch(err => {
+      return err;
+    });
 };
 
 const menu = {
@@ -68,6 +80,7 @@ const waiterThree = async () => {
   }
 }
 
-waiter();
-waiterTwo();
-waiterThree();
+//waiter();
+//waiterTwo();
+//waiterThree();
+
