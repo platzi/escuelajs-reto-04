@@ -34,7 +34,7 @@ const randomTime = () => {
 const waiter = () => {
   orders(randomTime(), menu.hamburger, table[3])
     .then((res) => console.log(res))
-    .catch((err) => console.error(`Ocurrió un problema con el mesero 1: ${err}`));
+    .catch((error) => console.error(`Ocurrió un problema con el mesero 1: ${error}`));
 };
 
 const waiter2 = () => {
@@ -44,13 +44,15 @@ const waiter2 = () => {
       return orders(randomTime(), menu.pizza, table[2])
     })
     .then((res) => console.log(res))
-    .catch((err) => console.error(`Ocurrió un problema con el mesero 2: ${err}`))
+    .catch((error) => console.error(`Ocurrió un problema con el mesero 2: ${error}`))
 };
 
 const waiter3 = async() => {
-  const table2Order = [orders(randomTime(), menu.hotdog, table[1]),  orders(randomTime(), menu.pizza, table[1]),  orders(randomTime(), menu.hotdog, table[1])]
+  let table2Order = [menu.hotdog, menu.pizza, menu.hotdog]
+  let tablesOrder = table2Order.map(order => orders(randomTime(), order, table[1]))
+ 
    try {
-      const orderForTable2 = await Promise.all(table2Order)
+      const orderForTable2 = await Promise.all(tablesOrder)
       console.log(orderForTable2)
    } catch (error) {
       console.error(`Ocurrió un problema con el mesero 3: ${error}`)
@@ -59,22 +61,20 @@ const waiter3 = async() => {
 
 const fetch = require('node-fetch');
 
-const fetchOrders = () => {
-  fetch(constants.API_URL)
-  .then(res => res.json())
-  .then(json => {
-    console.log(`Pedido recibido desde la API: ${json.data}`)
-    return json.data
-  })
-  .catch(error => console.error(`Algo salio mal :( : ${error}`))
+const fetchOrders = async() => {
+  try {
+    let fetchOrder = await fetch(constants.API_URL)
+    let orderInfo = await fetchOrder.json();
+    return orders (randomTime(), orderInfo.data, table[4])
+  } catch (error) {
+    console.error(`Algo salio mal :( : ${error}`)
+  }
 }
 
 
 
 const waiter4 = async() => {
-  const dd = [fetchOrders(), fetchOrders(), fetchOrders(), fetchOrders()]
-  const APIOrder = [orders(randomTime(), fetchOrders(), table[1]),  orders(randomTime(), fetchOrders(), table[1]), orders(randomTime(), fetchOrders(), table[1]), orders(randomTime(), fetchOrders(), table[1])]
-  console.log(APIOrder);
+  const APIOrder = [fetchOrders(), fetchOrders(), fetchOrders(), fetchOrders()]
    try {
       const orderFromAPI = await Promise.all(APIOrder)
       console.log(orderFromAPI)
@@ -87,5 +87,4 @@ const waiter4 = async() => {
 // waiter();
 // waiter2();
 // waiter3();
-//fetchOrders();
 waiter4();
