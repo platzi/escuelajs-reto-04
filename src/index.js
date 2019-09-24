@@ -25,10 +25,14 @@ const orders = (product, table) => {
   time = randomTime()
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    /*   reject(new Error(console.error(`***Pedido Fallido: Promesa Fallida***`))); */
-    }, time);
+    if (true) {
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      }, time);
+    } else {
+      reject(new Error(console.error(`***Pedido Fallido: Promesa Fallida***`)));      
+    }
+
    
   });
 }
