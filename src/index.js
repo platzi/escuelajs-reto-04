@@ -24,33 +24,24 @@ function randomTime (){
   return time.toFixed(0);
 }
 
-const waiter = () => {
-  orders(randomTime(), menu.hamburger, table[3])
+const waiter = (combo) => {
+  orders(randomTime(), menu[combo], table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 // Pedido "Mesa 1": Combo Hotdog Pedido "Mesa 3": Combo Pizza
-async function waiter2(tableId, menuId){
 
-  return new Promise ((resolve,reject)=>{
-    
-      await resolve( orders(randomTime(), menu[menuId], table[tableId]));
-      
-    
-      // reject(`Veci se nos acabaron los ${menu[menuId]}`)
-    
-
-  })
+const waiter2 = (customerOrder1, customerOrder2) => {
+      orders(randomTime(), menu[customerOrder1], table[1])
+        .then(response => {
+          console.log(response);
+          return orders(randomTime(), menu[customerOrder2], table[1])
+            .then(response =>{
+              console.log(response);
+            })
+        })
 }
-waiter2(0,'hotdog')
-    .then( resolve => {
-      console.log(resolve)
-      return waiter2(0,'pizza')
-    })
-    .then( resolve => {
-      console.log(resolve)
-    })
-    .catch((err) => console.error(err));
+    
 
 // Pedido "Mesa 2": Combo Hotdog, Combo Pizza, Combo Hotdog
 
@@ -75,10 +66,10 @@ const waiter3 = () => {
 return ordersMesa2;
   };
 console.log('mesero default');  
-waiter();
+waiter('hamburger');
 console.log('mesero 2');
-waiter2();
-console.log('mesero 3');
-waiter3();
+waiter2('hotdog','pizza');
+// console.log('mesero 3');
+// waiter3();
 console.log('  ');
 console.log('  ');
