@@ -8,9 +8,13 @@ const randomTime = () => {
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    }, time);
+    if (typeof time === 'number' && typeof product === 'string' &&typeof product === 'string' ){
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+      }, time);
+    } else {
+      reject('Error en el tipo de los argumentos recibidos.')
+    }
   });
 }
 
@@ -24,30 +28,34 @@ const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
   orders(randomTime(), menu.hamburger, table[3])
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
 };
 // Reto 2:
 const waiter2 = () => {
   orders(randomTime(),menu.hotdog,table[0])
-    .then((res) => console.log(res) )
-    .catch((err) => console.log(err));
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
   orders(randomTime(),menu.pizza,table[2])
-    .then((res) => console.log(res) )
-    .catch((err) => console.log(err));
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 }
 
 // Reto 3: 
 const waiter3 = async () => {
-  var order1 = orders(randomTime(),menu.hotdog,table[1])
-  var order2 = orders(randomTime(),menu.hamburger,table[1])
-  var order3 = orders(randomTime(),menu.pizza,table[1])
+  let order1 = orders(randomTime(),menu.hotdog,table[1]);
+  let order2 = orders(randomTime(),menu.pizza,table[1]);
+  let order3 = orders(randomTime(),menu.hotdog,table[1]);
 
   try { 
     const res = await Promise.all([order1, order2, order3]);
     res.map(any => console.log(any));
-  } catch(e){}
+  } catch(err){
+    console.log(err);
+  }
 }
+
+
 
 waiter();
 // Reto 2:
