@@ -26,6 +26,7 @@ const generateOrders = (preOrders) => {
 };
 
 const fetchOrders = () => {
+  console.log('Solicitando platillo...');
   return fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders')
     .then(res => {
       return res.json();
@@ -36,13 +37,14 @@ const fetchOrders = () => {
 };
 
 const createPreOrders = (tables) => {
-  if(tables.length <= 0) return new Error('Do not are tables');
+  if(tables == undefined || tables == null || tables.length <= 0) return new Error('Do not are tables');
   return tables.map(async (table) => {
     try {
       const res = await fetchOrders();
-      return { dish: res.data, table }
+      if(res.data === undefined) throw new Error('Our dont have your dish');
+      return { dish: res.data, table };
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   });
 };
@@ -92,7 +94,19 @@ const waiterThree = async () => {
   }
 }
 
-//waiter();
-//waiterTwo();
-//waiterThree();
 
+const waiterFour = async () => {
+  try {
+    const preOrders = await Promise.all(createPreOrders([table[4], table[4], table[4], table[4]]));
+    const waitOrders = generateOrders(preOrders);
+    const completeOrders = await Promise.all(waitOrders);
+    completeOrders.forEach(order => console.log(`Waiter 4: ${order}`));
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+waiter();
+waiterTwo();
+waiterThree();
+waiterFour();
