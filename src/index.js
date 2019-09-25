@@ -15,16 +15,10 @@ const orders = (waiter, time, product, table) => {
   
 const fetchOrders = async (waiter, table) => {    
     const API_URL = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
-    return new Promise((resolve, reject) =>{ 
-      const data = fetch(API_URL);
-      console.log('===============================');
-      console.log(data);
-      console.log('===============================');
-      const product = data.json;
-      resolve(`### Orden tomada por waiter${waiter}: ${product.data} para la ${table}`
-      );
-      reject(`== Paila, el mesero se comió su orden ==`);
-});
+    const data = await fetch(API_URL);
+    const product = await data.json();
+    const order = `### Orden tomada por waiter${waiter}: ${product.data} para la ${table}`;
+    return order;
 }
 
 const menu = {
