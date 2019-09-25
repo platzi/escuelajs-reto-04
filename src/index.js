@@ -27,14 +27,6 @@ const waiter = () => {
     .catch(err => console.error(err));
 };
 
-/* var min = 1000;
-var max = 8000;
-
-function getRandomTime(min, max) {
-  randomTime = Math.floor(Math.random() * (max - min)) + min
-  return randomTime;
-} */
-
 function getRandomTime() {
   min = 1000;
   max = 8000;
@@ -46,8 +38,8 @@ function getRandomOrden() {
   min = 0;
   max = 3;
   randomOrden = Math.floor(Math.random() * (max - min)) + min;
-  /* console.log(randomOrden)
-  console.log(menu2[randomOrden]) */
+  console.log(randomOrden)
+  console.log(menu2[randomOrden])
   return menu2[randomOrden];
 }
 
@@ -62,14 +54,14 @@ function getRandomTable() {
 const waiter2 = () => {
   orders(getRandomTime(), getRandomOrden(), getRandomTable())
     .then(res => {
-      console.log('Primera orden', tableWaiter2[randomTable]);
-      console.log(res);
+      /* console.log('Primera orden', tableWaiter2[randomTable]);
+      console.log(res); */
       if (tableWaiter2[randomTable] == 'Mesa 1') {
         randomTable = 1;
-        console.log('if ', tableWaiter2[randomTable]);
+        /* console.log('if ', tableWaiter2[randomTable]); */
       } else {
         randomTable = 0;
-        console.log('else ', tableWaiter2[randomTable]);
+        /* console.log('else ', tableWaiter2[randomTable]); */
       }
       return orders(
         getRandomTime(),
@@ -83,5 +75,42 @@ const waiter2 = () => {
     .catch(err => console.error(err));
 };
 
+
+
+function numberPeople(){
+  min = 1;
+  max = 4;
+  randomPeople = Math.floor(Math.random() * (max - min)) + min;
+  console.log('randomPeople :', randomPeople);
+  return randomPeople;
+}
+
+const takeOrders = (infoPeople, table) => {
+  let arrayOrders = [];
+  for (let i = 0; i < infoPeople; i++) {
+    let product = getRandomOrden();
+    arrayOrders[i] = product;
+    console.log(`### Orden: ${product} para ${table}`);
+    //const element = array[index];
+  }
+  return arrayOrders;
+}
+
+function onError(error) {
+  console.log(`Ocurrio el sigueinte error: ${error}`);
+}
+
+const waiter3 = async() => {
+  try {
+    let infoPeople = await numberPeople();
+    let ordersPeople = await takeOrders(infoPeople, table[1]);
+    console.log("ordenes ", ordersPeople);
+    //orders(getRandomTime(), getRandomOrden(), table[1]);
+  } catch (error) {
+    onError(error);
+  }
+}
+
 //waiter();
-waiter2();
+//waiter2();
+waiter3();
