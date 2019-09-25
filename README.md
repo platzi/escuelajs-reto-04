@@ -1,3 +1,7 @@
+# Steps
+1. npm install -- to intsall axios 
+2. npm run start  -- to execute and enjoy, tnks teachers nd platzi
+
 # escuelajs-reto-04
 Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 
