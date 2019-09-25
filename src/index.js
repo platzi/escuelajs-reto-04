@@ -25,11 +25,27 @@ const menu = {
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
-const waiter = () => {
-  orders(menu.hamburger, table[3])
+const waiter = (ordersArray) => {
+  orders(ordersArray[0], ordersArray[1])
     .then((response) => { console.log(response); })
     .catch((error) => { console.warn(error); });
 };
 
-// Los pedidos también llegan aleatoriamente, como en la vida real :V
-setTimeout(() => { waiter(); }, randomTime(1000, 2000));
+const waiter2 = (ordersArray) => {
+  orders(ordersArray[0], ordersArray[1])
+    .then((response) => {
+      console.log(response);
+      return orders(ordersArray[2], ordersArray[3]);
+    })
+    .then((response) => { console.log(response); })
+    .catch((error) => { console.warn(error); });
+};
+
+// Orders also arrive randomly, as in real life :V
+setTimeout(() => {
+  waiter([menu.hamburger, table[3]]);
+}, randomTime(1000, 3000));
+
+setTimeout(() => {
+  waiter2([menu.hotdog, table[0], menu.pizza, table[2]]);
+}, randomTime(1000, 3000));
