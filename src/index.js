@@ -4,6 +4,7 @@ const orders = (time, product, table) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
+    reject(eror)
     });
 }
 function randomTime (){
