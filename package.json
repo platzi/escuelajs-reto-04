@@ -21,7 +21,9 @@
     "url": "https://github.com/platzi/escuelajs-reto-04/issues"
   },
   "homepage": "https://github.com/platzi/escuelajs-reto-04#readme",
-  "dependencies": {},
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
   "devDependencies": {
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",

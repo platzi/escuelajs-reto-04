@@ -17,6 +17,13 @@ const orders = (product, table) => {
   });
 };
 
+const fetch = require('node-fetch');
+
+function fetchOrders() {
+  const URL = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+  return fetch(URL);
+}
+
 const menu = {
   hamburger: 'Combo Hamburguesa',
   hotdog: 'Combo Hot Dogs',
@@ -54,6 +61,24 @@ const waiter3 = (ordersArray) => {
     .catch((error) => { console.warn(error); });
 };
 
+const waiter4 = (numbOrders, tableIs) => {
+  const allResponse = (responseArray) => {
+    async function getResponse(obj) {
+      const swap = await orders(obj.data, tableIs);
+      return swap;
+    }
+    const responseMap = responseArray.map((promise) => promise.json());
+    const responseOrders = responseMap.map((promise2) => promise2.then(getResponse));
+    Promise.all(responseOrders)
+      .then((response) => { response.forEach((msg) => console.log(msg)); })
+      .catch((error) => { console.warn(error); });
+  };
+  const allFetch = new Array(numbOrders).fill(0).map(() => fetchOrders());
+  Promise.all(allFetch)
+    .then(allResponse)
+    .catch((error) => console.warn(error));
+};
+
 // Orders also arrive randomly, as in real life :V
 setTimeout(() => {
   waiter([menu.hamburger, table[3]]);
@@ -66,3 +91,5 @@ setTimeout(() => {
 setTimeout(() => {
   waiter3([menu.hotdog, table[1], menu.pizza, table[1], menu.hotdog, table[1]]);
 }, randomTime(1000, 3000));
+
+setTimeout(() => { waiter4(4, table[4]); }, randomTime(0, 100));
