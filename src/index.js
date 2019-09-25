@@ -1,3 +1,4 @@
+const fetch = require("node-fetch");
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
@@ -37,6 +38,7 @@ const waiter2 = () => {
 
 waiter();
 waiter2();
+
 const waiter3 = async () => {
   try {
   const replyHotDog = await orders(randomTime(), menu.hotdog, table[1]);
@@ -53,6 +55,39 @@ const waiter3 = async () => {
 
 waiter3();
 
+const fetchOrders = async (time, table) => {
+  try {
+  const data = await fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders/');
+  const showData = await data.json();
+  console.log(`### Orden: ${showData.data} para ${table}`);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+    resolve(`=== Pedido servido: ${showData.data}, tiempo de preparación ${time}ms para la ${table}`);
+    reject(`Algo salio maal :(`)
+
+    }, time);
+  });
+  }
+  catch(error) {
+    console.error("Lo siento pero la API(digo cocina) le dio por no funcionar");
+  }
+};
+
+const waiter4 = async () => 
+{
+    const order1 = await fetchOrders(randomTime() , table[4]);
+    const order2 = await fetchOrders(randomTime() , table[4]);
+    const order3 = await fetchOrders(randomTime() , table[4]);
+    const order4 = await fetchOrders(randomTime() , table[4]);
+
+    console.log(order1);
+    console.log(order2);
+    console.log(order3);
+    console.log(order4);
+
+}
+
+waiter4();
 
 
 
