@@ -41,6 +41,19 @@ const waiter2 = (ordersArray) => {
     .catch((error) => { console.warn(error); });
 };
 
+const waiter3 = (ordersArray) => {
+  const waiterInternal = async () => {
+    const ordersAll = new Array(3);
+    ordersAll[0] = await orders(ordersArray[0], ordersArray[1]);
+    ordersAll[1] = await orders(ordersArray[2], ordersArray[3]);
+    ordersAll[2] = await orders(ordersArray[4], ordersArray[5]);
+    return ordersAll;
+  };
+  waiterInternal()
+    .then((response) => { response.forEach((element) => { console.log(element); }); })
+    .catch((error) => { console.warn(error); });
+};
+
 // Orders also arrive randomly, as in real life :V
 setTimeout(() => {
   waiter([menu.hamburger, table[3]]);
@@ -48,4 +61,8 @@ setTimeout(() => {
 
 setTimeout(() => {
   waiter2([menu.hotdog, table[0], menu.pizza, table[2]]);
+}, randomTime(1000, 3000));
+
+setTimeout(() => {
+  waiter3([menu.hotdog, table[1], menu.pizza, table[1], menu.hotdog, table[1]]);
 }, randomTime(1000, 3000));
