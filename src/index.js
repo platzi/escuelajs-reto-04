@@ -12,13 +12,6 @@ const orders = (time, product, table) => {
   });
 }
 
-const fetchOrders = () => {
-  fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders')
-  .then(response => {response.json()
-  console.log(response)})
-}
-fetchOrders()
-
 const randomTime = () => (Math.floor(Math.random() * (8 - 1 + 1) + 1))*1000
 
 const menu = {
@@ -35,25 +28,48 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 const waiter2 = () => {
-  orders(randomTime(), menu.hotdog, table[2])
+  orders(randomTime(), menu.hotdog, table[0])
     .then((res) => {
       console.log(res)
-      return orders(randomTime(), menu.pizza, table[0])
+      return orders(randomTime(), menu.pizza, table[2])
     })
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
-const waiter3 = async () =>{
-  const orden1 = await orders(randomTime(), menu.hotdog, table[1])
-  const orden2 = await orders(randomTime(), menu.pizza, table[1])
-  const orden3 = await orders(randomTime(), menu.hotdog, table[1])
-  console.log(
-  `${orden1}
-  ${orden2}
-  ${orden3}`)
+const waiter3 = async () => {
+  const order1 = orders(randomTime(),menu.hotdog,table[1]);
+  const order2 = orders(randomTime(),menu.pizza,table[1]);
+  const order3 = orders(randomTime(),menu.hotdog,table[1]);
+  try { 
+    const pedidos = await Promise.all([order1, order2, order3]);
+    console.log(pedidos.toString())
+  } catch(err){
+    console.log(err);
+  }
 }
-// waiter();
-// waiter2();
-// waiter3();
+const fetch = require("node-fetch");
+const fetchOrders = () => {
+  const response = fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders')
+  return response
+}
+const waiter4 = async () => {
+  for (i=0; i<4; i++){
+    const response = await fetchOrders()
+    if(response.ok){
+      const pedidos = await response.json()
+      const entrega = await orders(randomTime(),pedidos.data,table[4])
+      console.log(entrega)
+    }
+    else{
+      console.log(`No se pudo completar el pedido de la mesa ${table[4]}`)
+    }
+  } 
+}
+
+waiter();
+waiter2();
+waiter3();
+waiter4()
+
 
