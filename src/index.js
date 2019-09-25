@@ -124,9 +124,9 @@ async function waiter4() {
 //console.log('Generando Reto 2')
 //waiter2();
 //console.log('Generando Reto 3')
-waiter3();
+//waiter3();
 //console.log('Generando Reto 4')
-//waiter4();
+waiter4();
 
 //NOTAS
 //Install it in your Node application like this
