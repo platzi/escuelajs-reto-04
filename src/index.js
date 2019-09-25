@@ -9,8 +9,6 @@ const orders = (time, product, table) => {
   });
 }
 
-
-
 const orders2 = (orden) => {
   console.log(`### Orden: ${orden.product} para ${orden.table}`);
   return new Promise((resolve, reject) => {
@@ -62,7 +60,7 @@ const waiter2 = () => {
 
 
 function onError(orden){
-  console.log (`Sucedio un error al atender la orden ${this.product} con tiempo ${this.time} de la mesa ${this.table}`)
+  console.log (`Sucedio un error al atender la orden ${orden.product} con tiempo ${orden.time} de la mesa ${orden.table}`)
 }
 
 async function waiter3(){
@@ -126,9 +124,9 @@ async function waiter4() {
 //console.log('Generando Reto 2')
 //waiter2();
 //console.log('Generando Reto 3')
-//waiter3();
+waiter3();
 //console.log('Generando Reto 4')
-waiter4();
+//waiter4();
 
 //NOTAS
 //Install it in your Node application like this
