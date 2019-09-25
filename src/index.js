@@ -1,15 +1,30 @@
+const fetch = require("node-fetch")
 const orders = (waiter, time, product, table) => {
   
   console.log(`### Orden tomada por waiter${waiter}: ${product} para la ${table}`);
   return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(
-          `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
+    setTimeout(() => {
+      resolve(
+        `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
         );
         reject(`== Paila, el mesero se comió su orden ==`);
       }, time);
-               
-  });
+      
+    });
+  }
+  
+const fetchOrders = async (waiter, table) => {    
+    const API_URL = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+    return new Promise((resolve, reject) =>{ 
+      const data = fetch(API_URL);
+      console.log('===============================');
+      console.log(data);
+      console.log('===============================');
+      const product = data.json;
+      resolve(`### Orden tomada por waiter${waiter}: ${product.data} para la ${table}`
+      );
+      reject(`== Paila, el mesero se comió su orden ==`);
+});
 }
 
 const menu = {
@@ -68,9 +83,18 @@ const waiter3 = async(customer1,customer2,customer3) => {
     }  
   }
 
+const waiter4 = async()=>{
+  order = await fetchOrders(4,table[1]);
+  console.log(order);
+  
+      
+}
+
 
 waiter('hamburger');
 
 waiter2('hotdog','pizza');
 
 waiter3('hotdog','pizza','hotdog');
+
+waiter4();
