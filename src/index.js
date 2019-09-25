@@ -4,9 +4,18 @@ const orders = (time, product, table) => {
     console.log(`### Orden: ${product} para ${table}`);
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
+            resolve(`=== Pedido servido: ${product}, tiempo de preparación 
+                ${time}ms para la ${table}`);
         }, time);
     });
+}
+
+const fetch = require('node-fetch');
+const fetchOrder = () => {
+    let url = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+    fetch(url)
+        .then(response => response.json())
+        .then(json => json.data);
 }
 
 const menu = {
@@ -44,10 +53,27 @@ async function waiter3() {
         console.log(order2);
         console.log(order3);
     } catch (err) {
-        console.log('Ha ocurrido un error en la orden de la mesa 2');
+        console.log('Ha ocurrido un error con el mesero 3');
     }
 }
 
-waiter();
-waiter2();
-waiter3();
+async function waiter4() {
+    try {
+        let order1 = await orders(randomTime(), fetchOrder(), table[1]);
+        let order2 = await orders(randomTime(), fetchOrder(), table[1]);
+        let order3 = await orders(randomTime(), fetchOrder(), table[1]);
+        let order4 = await orders(randomTime(), fetchOrder(), table[1]);
+
+        console.log(order1);
+        console.log(order2);
+        console.log(order3);
+        console.log(order4);
+    } catch (err) {
+        console.log('Ha ocurrido un error con el mesero 4');
+    }
+}
+
+// waiter();
+// waiter2();
+// waiter3();
+waiter4();
