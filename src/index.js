@@ -1,12 +1,12 @@
-const orders = (time, product, table) => {
+const orders = (waiter, time, product, table) => {
   
-  console.log(`### Orden: ${product} para la ${table}`);
+  console.log(`### Orden tomada por waiter${waiter}: ${product} para la ${table}`);
   return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(
           `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
         );
-        reject(`== Paila, se le demora ==`);
+        reject(`== Paila, el mesero se comió su orden ==`);
       }, time);
                
   });
@@ -29,17 +29,17 @@ function randomTime (){
 }
 
 const waiter = (combo) => {
-  orders(randomTime(), menu[combo], table[3])
+  orders('',randomTime(), menu[combo], table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 // Pedido "Mesa 1": Combo Hotdog Pedido "Mesa 3": Combo Pizza
 
 const waiter2 = (customerOrder1, customerOrder2) => {
-      orders(randomTime(), menu[customerOrder1], table[1])
+      orders('2',randomTime(), menu[customerOrder1], table[0])
         .then(response => {
           console.log(response);
-          return orders(randomTime(), menu[customerOrder2], table[1])
+          return orders('2',randomTime(), menu[customerOrder2], table[2])
             .then(response =>{
               console.log(response);
             })
@@ -54,26 +54,23 @@ const waiter2 = (customerOrder1, customerOrder2) => {
 // Manejo de errores
 
 // Utiliza la función de randomTime
-const waiter3 = () => {
-  ordersMesa2 = async () => {
-    const combo1 = await orders(randomTime(),menu.hotdog, table[3]);
-    const combo2 = await orders(randomTime(),menu.pizza, table[3]);
-    const combo3 = await orders(randomTime(),menu.hotdog, table[3]);
-    Promise.all([combo1,combo2,combo3])
-    return combo1, combo2, combo3; 
+const waiter3 = async(customer1,customer2,customer3) => {
+  
+    try {
+      const customerOrder1 = await orders('3',randomTime(),customer1,table[1]);
+      const customerOrder2 = await orders('3',randomTime(),customer2,table[1]);
+      const customerOrder3 = await orders('3',randomTime(),customer3,table[1]);
+      console.log(customerOrder1);
+      console.log(customerOrder2);
+      console.log(customerOrder3);      
+    } catch (error) {
+      console.log(`Lo sentimos, el mesero se comió su orden`)
+    }  
   }
 
-  orders(randomTime(), menu.hamburger, table[3])
-    .then((res) => console.log(res))
-    .catch((err) => console.error(err));
- 
-return ordersMesa2;
-  };
-console.log('mesero default');  
+
 waiter('hamburger');
-console.log('mesero 2');
+
 waiter2('hotdog','pizza');
-// console.log('mesero 3');
-// waiter3();
-console.log('  ');
-console.log('  ');
+
+waiter3('hotdog','pizza','hotdog');
