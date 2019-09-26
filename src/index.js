@@ -1,10 +1,12 @@
+const fetch = require("node-fetch");
+
+
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
     }, time);
-    reject(eror)
     });
 }
 function randomTime (){
@@ -46,18 +48,46 @@ const waiter3 =  async () =>{
   ]
   try{
     var order3 = await Promise.all(orders1)
-    .then((resolve) => console.log('El pedido para la mesa 2 es:',resolve))
-  }catch (error){
+    .then((resolve) => console.log('Entregado el pedido para la mesa 2 :',resolve))
+  }catch (reject){
     console.log('tenemos un error en el pedido')
   } 
+}
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders'
+
+async function fetchData(url){
+  const response = await fetch(url)
+  const data = await response.json()
+  return data.data;
 }
 
 
 
 
-
-
+async function waiter4 (){
+  try{
+    const order4 = [
+      fetchData(API),
+      fetchData(API),
+      fetchData(API),
+      fetchData(API),
+    ]
+    const pedidos = await Promise.all(order4)
+    var orders2 =[
+      orders(randomTime(),pedidos[0], table[3]),
+      orders(randomTime(),pedidos[1], table[3]),
+      orders(randomTime(),pedidos[2], table[3]),
+      orders(randomTime(),pedidos[3], table[3])
+    ]
+    const pedidos2 = await Promise.all(orders2)
+ 
+    console.log('Entregado el pedido para la mesa 4 repito pedido ',pedidos2)
+  } catch (error){
+  console.log('tenemos un error con la orden')
+  }
+ 
+}
 waiter();
 waiter2();
 waiter3();
-
+waiter4();
