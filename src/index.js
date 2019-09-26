@@ -8,6 +8,18 @@ const orders = (time, product, table) => {
         )
       );
     } else {
+      switch (product) {
+        case menu.hamburger:
+        case menu.hotdog:
+        case menu.pizza:
+          break;
+        default:
+          reject(
+            new Error(
+              `=== El producto ${product} no se encuentra en el menú :(`
+            )
+          );
+      }
       setTimeout(() => {
         resolve(
           `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
@@ -52,22 +64,56 @@ const waiter2 = () => {
 };
 
 const waiter3 = async () => {
+  let time = randomTime();
+  let manyOrders = [
+    await orders(time, menu.hotdog, table[1]),
+    await orders(time, menu.pizza, table[1]),
+    await orders(time, menu.hotdog, table[1])
+  ];
+  Promise.all(manyOrders)
+    .then(res => console.log(res))
+    .catch(err => new Error(`Hubo un problema en la cocina: ${err}`));
+};
+
+const fetchOrders = async () => {
   try {
-    let pedido1 = await orders(randomTime(), menu.hotdog, table[1]);
-    let pedido2 = await orders(randomTime(), menu.pizza, table[1]);
-    let pedido3 = await orders(randomTime(), menu.hotdog, table[1]);
-    console.log('Órdenes listas');
-    console.log(pedido1);
-    console.log(pedido2);
-    console.log(pedido3);
+    const url = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+    const fetch = require('node-fetch');
+    const response = await fetch(url);
+    const info = await response.json();
+    switch (info['data']) {
+      case menu.hamburger:
+        return await orders(randomTime(), menu.hamburger, table[3]);
+      case menu.hotdog:
+        return await orders(randomTime(), menu.hotdog, table[3]);
+      case menu.pizza:
+        return await orders(randomTime(), menu.pizza, table[3]);
+      default:
+        return await orders(randomTime(), info['data'], table[3]);
+    }
   } catch (err) {
-    console.log(new Error(`Hubo un problema en la cocina: ${err}`));
+    console.log(new Error(`Hubo un problema en la apicocina: ${err}`));
   }
 };
 
+const waiter4 = async () => {
+  let manyOrders = [];
+  for (let i = 0; i < 4; i++) {
+    manyOrders.push(await fetchOrders());
+  }
+  Promise.all(manyOrders)
+    .then(res => console.log(res))
+    .catch(err => new Error(`Hubo un problema en la cocina: ${err}`));
+};
+
+/**
+ * Descomentar la línea del problema a resolver
+ */
 // Primer problema
-waiter();
+//waiter();
 // Segundo problema
-waiter2();
+//waiter2();
 // Tercer problema
-waiter3();
+//waiter3();
+// Cuarto problema
+waiter4();
