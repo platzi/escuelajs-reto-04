@@ -95,7 +95,7 @@ async function waiter3() {
 waiter3();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
+/* 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 var API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
@@ -130,4 +130,4 @@ async function waiter4(){
   }
 }
 
-waiter4();
+waiter4(); */
