@@ -60,10 +60,6 @@ async function fetchData(url){
   const data = await response.json()
   return data.data;
 }
-
-
-
-
 async function waiter4 (){
   try{
     const order4 = [
