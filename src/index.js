@@ -26,4 +26,18 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  Promise.all([
+    orders(randomTime(), menu.hotdog, table[0]),
+    orders(randomTime(), menu.pizza, table[2])
+  ])
+  .then((response) => {
+    console.log(response)
+  })
+  .catch((error) => {
+    console.log(error)
+  }) 
+}
+
 waiter();
+waiter2();
