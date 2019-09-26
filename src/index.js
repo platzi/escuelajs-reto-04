@@ -1,3 +1,4 @@
+/** Generate random number as ms between 1000 to 8000*/
 const randomTime = () => {
  return Math.ceil(Math.random() * 8) * 1000
 }
@@ -26,18 +27,30 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
-const waiter2 = () => {
-  Promise.all([
-    orders(randomTime(), menu.hotdog, table[0]),
-    orders(randomTime(), menu.pizza, table[2])
-  ])
-  .then((response) => {
+const waiter2 = () => {  
+  orders(randomTime(), menu.hotdog, table[0])
+  .then(response => {
     console.log(response)
+    return orders(randomTime(), menu.pizza, table[2])
   })
-  .catch((error) => {
+  .then(response => console.log(response))
+  .catch(error => console.error(error));
+}
+
+async function waiter3() {
+  let order_table2 = [
+    orders(randomTime(), menu.hotdog, table[1]),
+    orders(randomTime(), menu.pizza, table[1]),
+    orders(randomTime(), menu.hotdog, table[1])
+  ]
+  try{
+    let response = await Promise.all(order_table2)
+    console.log(response)
+  } catch(error){
     console.log(error)
-  }) 
+  }
 }
 
 waiter();
 waiter2();
+waiter3();
