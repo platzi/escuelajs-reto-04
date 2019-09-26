@@ -1,3 +1,5 @@
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 /** Challenge 1: Generate random number as ms between 1000 to 8000 */
 const randomTime = () => {
  return Math.ceil(Math.random() * 8) * 1000
@@ -53,7 +55,57 @@ async function waiter3() {
   }
 }
 
+/** Challenge 4 */
+  const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+  let xhttp = new XMLHttpRequest();
+  const fetchOrders = url_api =>{
+    return new Promise( (resolve, reject) => {
+      xhttp.onreadystatechange = (event) => {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+          return resolve(JSON.parse(xhttp.responseText))
+        }
+        else {
+          return reject (`Error when execute: ${url_api}`)
+        }
+      }
+      xhttp.open('GET', url_api, false)
+      xhttp.send();
+    })
+  }
+
+  async function waiter4() {
+    const orders_table5 = []
+    fetchOrders(API)
+    .then (data1 => {
+      orders_table5.push(data1.data)
+      return fetchOrders(API)
+    })
+    .then (data2 => {
+      orders_table5.push(data2.data)
+      return fetchOrders(API)
+    })
+    .then (data3 => {
+      orders_table5.push(data3.data)
+      return fetchOrders(API)
+    })
+    .then (data4 => {
+      orders_table5.push(data4.data)
+    })
+    .catch(error => console.log(error))
+    let promises_orders = []
+    for(let i; i < orders_table5.length(); i++){
+      promises_orders.push(orders(randomTime(), orders_table5[i], table[4]))
+    }
+    try{
+      let response = await Promise.all(promises_orders)
+      console.log(response)
+    } catch(error){
+      console.log(error)
+    }
+  }
+
 /** main program */
-waiter();
-waiter2();
-waiter3();
+waiter()
+waiter2()
+waiter3()
+waiter4()
