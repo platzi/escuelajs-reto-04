@@ -1,4 +1,4 @@
-/** Generate random number as ms between 1000 to 8000*/
+/** Challenge 1: Generate random number as ms between 1000 to 8000 */
 const randomTime = () => {
  return Math.ceil(Math.random() * 8) * 1000
 }
@@ -27,6 +27,7 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+/** Challenge 2: Waiter 2 deliver to Table 1 and Table 3 */
 const waiter2 = () => {  
   orders(randomTime(), menu.hotdog, table[0])
   .then(response => {
@@ -37,6 +38,7 @@ const waiter2 = () => {
   .catch(error => console.error(error));
 }
 
+/** Challenge 3: Waiter 3 deliver to Table 2 */
 async function waiter3() {
   let order_table2 = [
     orders(randomTime(), menu.hotdog, table[1]),
@@ -51,6 +53,7 @@ async function waiter3() {
   }
 }
 
+/** main program */
 waiter();
 waiter2();
 waiter3();
