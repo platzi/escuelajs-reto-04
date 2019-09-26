@@ -35,7 +35,22 @@ const waiter2 = () => {
     .catch((err) => console.log(err));
 }
 
+const waiter3 = async () => {
+  const res = []
+
+  res[0] = orders(randomTime(maximum, minimum), menu.hamburger, table[1])
+  res[1] = orders(randomTime(maximum, minimum), menu.hotdog, table[1])
+  res[2] = orders(randomTime(maximum, minimum), menu.pizza, table[1])
+
+  const answered = await Promise.all(res)
+
+  for(answer of answered){
+    console.log(answer)
+  }
+};
+
 waiter()
 waiter2()
+waiter3()
 
 orders(randomTime(),menu.hamburger,table[0])
