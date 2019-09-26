@@ -1,4 +1,6 @@
-const randomTime = ()=> Math.floor((Math.random() * 8000) + 1000)
+const maximum = 8000
+const minimum = 1000
+const randomTime = (maximum,minimum)=> Math.floor((Math.random() * maximum) + minimum)
 
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
@@ -18,7 +20,7 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(randomTime(), menu.hamburger, table[3])
+  orders(randomTime(minimum, maximum), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
