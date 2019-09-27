@@ -5,10 +5,10 @@ const orders = (time, product, table) => {
       resolve(
         `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
       );
-      reject(
-        `!== Ups, el pedido ${product} de la mesa ${table} no pudo ser completado`
-      );
     }, time);
+    if (!time || !product || !table) {
+      reject(`!== Ups, el pedido no puede ser completado`);
+    }
   });
 };
 
@@ -26,7 +26,7 @@ const waiter = () => {
     .catch(err => console.error(err));
 };
 
-waiter();
+// waiter();
 
 /** Tiempo mínimo de espera */
 const minTime = 1;
@@ -50,4 +50,22 @@ const waiter2 = () => {
     .catch(err => console.log(err));
 };
 
-waiter2();
+// waiter2();
+
+/**
+ * Se agrega método para resolver los pedidos de la mesa 2 de forma paralela
+ */
+const waiter3 = async () => {
+  try {
+    const pedido = await Promise.all([
+      orders(randomTime(minTime, maxTime), menu.hotdog, table[1]),
+      orders(randomTime(minTime, maxTime), menu.pizza, table[1]),
+      orders(randomTime(minTime, maxTime), menu.hotdog, table[1])
+    ]);
+    pedido.map(val => console.log(val));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+waiter3();
