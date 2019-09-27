@@ -43,5 +43,19 @@ const waiter2 = () => {
     .catch((error) => console.log(`Hubo un problema con el Mesero 2: ${error}`))
 }
 
+const waiter3 = async () => {
+  let orderList = [
+    orders(randomTime(), menu.hotdog, table[1]),
+    orders(randomTime(), menu.pizza, table[1]),
+    orders(randomTime(), menu.hamburger, table[1])
+  ]
+  const getOrderTable2 = await Promise.all(orderList);
+  
+  console.log(`========== Los Platos de la ${table[1]} estan listos: ==========`)
+  getOrderTable2.forEach(order => console.log(order))
+ 
+}
+
 waiter();
 waiter2();
+waiter3();
