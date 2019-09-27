@@ -5,6 +5,9 @@ const orders = (time, product, table) => {
       resolve(
         `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
       );
+      reject(
+        `!== Ups, el pedido ${product} de la mesa ${table} no pudo ser completado`
+      );
     }, time);
   });
 };
@@ -33,3 +36,18 @@ const maxTime = 9;
 const randomTime = function(min, max) {
   return Math.floor(Math.random() * (max - min) + min) * 1000;
 };
+
+/**
+ * Método que toma las órdenes de las mesas 1 y 3, usando promesas encadenadas
+ */
+const waiter2 = () => {
+  orders(randomTime(minTime, maxTime), menu.hotdog, table[0])
+    .then(res => {
+      console.log(res);
+      return orders(randomTime(minTime, maxTime), menu.pizza, table[2]);
+    })
+    .then(res1 => console.log(res1))
+    .catch(err => console.log(err));
+};
+
+waiter2();
