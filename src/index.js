@@ -17,7 +17,7 @@ const orders = (time, product, table) => {
   return new Promise((resolve, reject) => {
     if (!time || !product || !table) {
       return reject(
-        `Error: falta información: Tiempo = ${time}, Mesa = ${table}, Producto = ${product}`
+        new Error(`Error: falta información: Tiempo = ${time}, Mesa = ${table}, Producto = ${product}`)
       )
     }
     setTimeout(() => {
@@ -68,12 +68,12 @@ const waiter3 = async () => {
 const fetchOrders = async () => {
   try {
     const orderResponse = await fetch(
-      "https://us-central1-escuelajs-api.cloudfunctions.net/orders"
+      constants.API
     )
     const order = await orderResponse.json()
     return orders(randomTime(), order.data, table[4])
   } catch (err) {
-    console.error(err)
+    console.error(err.message)
   }
 }
 
