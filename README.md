@@ -1,10 +1,35 @@
 # escuelajs-reto-04
 Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 
+# Actualización
+
+Esta versión introduce cambios importantes en la estructura del proyecto. Se incluye el paquete `node-fetch` para realizar peticiones asíncronas en la aplicación.
+
+El paquete `node-fetch` se utiliza de la siguiente forma:
+
+```
+fetch(recurso, [{optiones}])
+```
+
+Donde `recurso` es un string hacia el recurso que se desea obtener, y `options` debe ser un objeto con las opciones necesarias para poder realizar y obtener la información.
+
+Para mayor información sobre el paquete, se puede revisar la siguiente documentación: 
+
+* [NPM](https://www.npmjs.com/package/node-fetch)
+* [Github](https://github.com/bitinn/node-fetch) 
+
+# Instalación
+
+Para instalar los paquetes requeridos, es necesario ejecutar en la Terminal el comando:
+
+```
+npm install
+```
+
 # Ejecución
 
 ```
-npm run start
+npm start
 ```
 
 ### Primer problema
