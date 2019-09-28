@@ -27,7 +27,7 @@ const fetchOrders = async (
         `=== Pedido servido: ${(await response.json()).data}`
       );
     } else {
-      return Promise.reject(`Error fetching url: ${url_api}`);
+      return Promise.reject(new Error(`Error fetching url: ${url_api}`));
     }
   } catch (error) {
     console.error(error.message);
