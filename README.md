@@ -1,10 +1,19 @@
 # escuelajs-reto-04
 Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 
+# Dependencias
+El programa utiliza [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch) para utilizar fetch.
+
+Para instalar las dependencias debes ejecutar en terminal:
+
+```
+npm i
+```
+
 # Ejecución
 
 ```
-npm run start
+npm start
 ```
 
 ### Primer problema
