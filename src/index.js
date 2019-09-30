@@ -7,7 +7,7 @@ const orders = (time, product, table) => {
           `=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`
         );
       } catch (error) {
-        reject(`Lo sentimos. Hubo un error ${error}`);
+        reject(new Error(`Lo sentimos. Hubo un error en el pedido: ${error}`));
       }
     }, time);
   });
