@@ -21,7 +21,6 @@ const menu = {
 
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
-// Obtener un número random
 function randomTime(min = 1000, max = 8000) {
   return Math.floor(Math.random() * (max - min) + min);
 }
@@ -72,7 +71,6 @@ const fetchOrders = async url => {
 };
 
 const waiter4 = async () => {
-  //debugger;
   let time = randomTime();
   let differentOrders = [];
 
