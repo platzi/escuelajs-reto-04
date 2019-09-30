@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 function randomTime() {
   const max = 8000
   const min = 1000
@@ -51,3 +53,48 @@ async function  waiter3  (orders4, orders5, orders6) {
   }
 }
 waiter();
+
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders'
+const apiMenu = [];
+
+
+async function fetchOrders(){
+  await fetch(API)
+   .then(function(response) {
+    return response.json()
+      
+   })
+   .then(function(json) {
+     const apiCombo = json.data;
+     apiMenu.push(apiCombo);
+     return apiMenu;
+   })
+ };
+ 
+ fetchOrders();
+ fetchOrders();
+ fetchOrders();
+ fetchOrders();
+ 
+ 
+ async function  waiter4 (order7, order8, orders9, orders10) {
+  
+  try{
+    const order7 = await orders(randomTime(), apiMenu[0], table[4])
+    const order8 = await orders(randomTime(), apiMenu[1], table[4])
+    const order9 = await orders(randomTime(), apiMenu[2], table[4])
+    const order10 = await orders(randomTime(), apiMenu[3], table[4])
+    console.log(order7);
+    console.log(order8);
+    console.log(order9);
+    console.log(order10);
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+setTimeout(() =>{
+  console.log(apiMenu);
+  waiter4();
+}, 7000);
