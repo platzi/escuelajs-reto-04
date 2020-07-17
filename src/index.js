@@ -27,4 +27,15 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  var time=randomTime(1000,8000)
+  orders(time, menu.hotdog, table[0])
+    .then((res) => console.log(res))
+      var time=randomTime(1000,8000)
+      return orders(time, menu.pizza, table[2])
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
+}
+
 waiter();
+waiter2();
