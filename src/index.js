@@ -13,7 +13,7 @@ const orders = (time, product, table) => {
   });
 }
 
-const randomTime = (min, max) => Math.round(Math.random() * ((max - min) + min));
+const randomTime = (min, max) => Math.round(Math.random() * (max - min)) + min;
 
 const menu = {
   hamburger: 'Combo Hamburguesa',
@@ -29,4 +29,15 @@ const waiter = () => {
     .catch((err) => console.error(err));
 };
 
+const waiter2 = () => {
+  orders(randomTime(minTime, maxTime), menu.hotdog, table[0])
+    .then((res) => {
+      console.log(res)
+      return orders(randomTime(minTime, maxTime), menu.pizza, table[2])
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.error(err));
+};
+
 waiter();
+waiter2();
