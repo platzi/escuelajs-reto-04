@@ -1,4 +1,21 @@
+let XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 let minTime = 1000, maxTime = 8000;
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders'
+
+const fetchOrders = (url_api) => {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('GET', url_api, true)
+    xhttp.onreadystatechange = (event) => {
+      if (xhttp.readyState === 4){
+        (xhttp.status === 200)
+          ? resolve(JSON.parse(xhttp.responseText))
+          : reject(new Error('El mesero se lo comió por que no funcionó', url_api));
+      }
+    }
+    xhttp.send();
+  })
+}
 
 const orders = (time, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
@@ -53,6 +70,24 @@ const waiter3 = async () => {
   }
 }
 
-waiter();
-waiter2();
-waiter3();
+const waiter4 = async (url_api) => {
+  try {
+    const ped = await fetchOrders(url_api);
+    const orderOne = await orders(randomTime(minTime, maxTime), ped.data, table[0]);
+    const orderTwo = await orders(randomTime(minTime, maxTime), ped.data, table[1]);
+    const orderThree = await orders(randomTime(minTime, maxTime), ped.data, table[2]);
+    const orderFour = await orders(randomTime(minTime, maxTime), ped.data, table[4]);
+
+    console.log(orderOne);
+    console.log(orderTwo);
+    console.log(orderThree);
+    console.log(orderFour);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// waiter();
+// waiter2();
+// waiter3();
+waiter4(API);
