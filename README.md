@@ -1,6 +1,12 @@
 # escuelajs-reto-04
 Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 
+# Instalacion
+
+```
+npm install
+```
+
 # Ejecución
 
 ```
