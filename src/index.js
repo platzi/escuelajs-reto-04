@@ -1,11 +1,24 @@
-const orders = (time, product, table) => {
+const orders = (randomTime, product, table) => {
   console.log(`### Orden: ${product} para ${table}`);
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`=== Pedido servido: ${product}, tiempo de preparación ${time}ms para la ${table}`);
-    }, time);
+    if (true) {
+      setTimeout(() => {
+        resolve(`=== Pedido servido: ${product}, tiempo de preparación ${randomTime}ms para la ${table}`);
+      }, randomTime);
+    } else {
+      reject('Error');
+    }
+
   });
 }
+
+
+//Solución al problema 1
+const randomTime = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+//fin de solución problema 1
+
 
 const menu = {
   hamburger: 'Combo Hamburguesa',
@@ -16,9 +29,60 @@ const menu = {
 const table = ['Mesa 1', 'Mesa 2', 'Mesa 3', 'Mesa 4', 'Mesa 5'];
 
 const waiter = () => {
-  orders(6000, menu.hamburger, table[3])
+  orders(randomTime(1000, 8001), menu.hamburger, table[3])
     .then((res) => console.log(res))
     .catch((err) => console.error(err));
 };
 
 waiter();
+
+//Solución problema 2
+const waiter2 = () => {
+  orders(randomTime(1000, 8001), menu.hotdog, table[0])
+  .then((res) => console.log(res))
+  return orders(randomTime(1000, 8001), menu.pizza, table[2])
+  .then((res) => console.log(res))
+  .catch((err) => console.error(err));
+}
+
+waiter2();
+//fin de solución problema 2
+
+//Solución problema 3
+const waiter3 = async () => {
+  try {
+    const pedido1Mesa2 = await orders(randomTime(1000, 8001), menu.hotdog, table[1]);
+    const pedido2Mesa2 = await orders(randomTime(1000, 8001), menu.pizza, table[1]);
+    const pedido3Mesa2 = await orders(randomTime(1000, 8001), menu.hotdog, table[1]);
+    console.log(pedido1Mesa2);
+    console.log(pedido2Mesa2);
+    console.log(pedido3Mesa2);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+waiter3();
+//Fin solución problema 3
+
+//Solución problema 4
+const fetchOrders = require('../utils/fetchOrders');
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+
+const waiter4 = async (url_api) => {
+    try {
+      const comida = await fetchOrders(url_api);
+      const pedido1Mesa4 = await orders(randomTime(1000, 8001), comida.data, table[3]);
+      const pedido2Mesa4 = await orders(randomTime(1000, 8001), comida.data, table[3]);
+      const pedido3Mesa4 = await orders(randomTime(1000, 8001), comida.data, table[3]);
+      console.log(pedido1Mesa4);
+      console.log(pedido2Mesa4);
+      console.log(pedido3Mesa4);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+waiter4(API);
+
+//Fin solución problema 4
