@@ -13,7 +13,7 @@ const orders = (randomTime, product, table) => {
 }
 
 const randomTime = (min, max) => {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 const menu = {
@@ -31,3 +31,13 @@ const waiter = () => {
 };
 
 waiter();
+
+const waiter2 = () => {
+  orders(randomTime(1000, 8001), menu.hotdog, table[0])
+  .then((res) => console.log(res))
+  return orders(randomTime(1000, 8001), menu.pizza, table[2])
+  .then((res) => console.log(res))
+  .catch((err) => console.error(err));
+}
+
+waiter2();
