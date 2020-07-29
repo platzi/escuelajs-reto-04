@@ -64,3 +64,25 @@ const waiter3 = async () => {
 
 waiter3();
 //Fin solución problema 3
+
+//Solución problema 4
+const fetchOrders = require('../utils/fetchOrders');
+const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/orders';
+
+const waiter4 = async (url_api) => {
+    try {
+      const comida = await fetchOrders(url_api);
+      const pedido1Mesa4 = await orders(randomTime(1000, 8001), comida.data, table[3]);
+      const pedido2Mesa4 = await orders(randomTime(1000, 8001), comida.data, table[3]);
+      const pedido3Mesa4 = await orders(randomTime(1000, 8001), comida.data, table[3]);
+      console.log(pedido1Mesa4);
+      console.log(pedido2Mesa4);
+      console.log(pedido3Mesa4);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+waiter4(API);
+
+//Fin solución problema 4
