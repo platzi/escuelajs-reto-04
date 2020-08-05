@@ -6,7 +6,7 @@ Nombre:
 Usuario Platzi:
 
 ## Ciudad
-- [ ] Ciudad de México
+- [X] Ciudad de México
 - [ ] Bogotá
 
 ## Reto:
