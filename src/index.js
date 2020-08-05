@@ -25,6 +25,7 @@ const table = ["Mesa 1", "Mesa 2", "Mesa 3", "Mesa 4", "Mesa 5"];
 const waiter = () => {
     let time = randomTime(1000, 8000);
     orders(time, menu.hamburger, table[3])
+
         .then((res) => console.log(res))
         .catch((err) => console.error(err));
 };
@@ -36,10 +37,31 @@ const waiter2 = () => {
 
     let time2 = randomTime(1000, 8000);
     orders(time2, menu.pizza, table[2])
-        .then((res) => console.log(res))
 
+        .then((res) => console.log(res))
         .catch((err) => console.error(err));
+};
+
+const waiter3 = async () => {
+    try {
+        let time1 = randomTime(1000, 8000);
+        const order1 = await orders(time1, menu.hotdog, table[1]);
+
+        let time2 = randomTime(1000, 8000);
+        const order2 = await orders(time2, menu.pizza, table[1]);
+
+        let time3 = randomTime(1000, 8000);
+        const order3 = await orders(time3, menu.hotdog, table[1]);
+
+        Promise.all([order1, order2, order3])
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 waiter();
 waiter2();
+waiter3();
