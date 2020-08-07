@@ -46,6 +46,7 @@ const waiter3 = async () => {
       const order1 = await orders(randomTime(min, max), menu.hotdog, table[1])
       const order2 = await orders(randomTime(min, max), menu.pizza, table[1])
       const order3 = await orders(randomTime(min, max), menu.hotdog, table[1])
+      
             console.log(order1)
             console.log(order2)
             console.log(order3)
@@ -69,9 +70,11 @@ fetch('https://us-central1-escuelajs-api.cloudfunctions.net/orders')
           const order1 = await orders(randomTime(min, max), data.slice(9,-2), table[4])
           const order2 = await orders(randomTime(min, max), data.slice(9,-2), table[4])
           const order3 = await orders(randomTime(min, max), data.slice(9,-2), table[4])
+          const order4 = await orders(randomTime(min, max), data.slice(9,-2), table[4])
                 console.log(order1)
                 console.log(order2)
                 console.log(order3)
+                console.log(order4)
       } catch (error) {
                 console.error(error)
       }
