@@ -2,15 +2,15 @@
 
 Solución al reto 04 de Escuela de JavaScript
 
-Nombre:
-Usuario Platzi:
+Nombre: Michael Espinosa
+Usuario Platzi: Maes
 
 ## Ciudad
 - [ ] Ciudad de México
-- [ ] Bogotá
+- [X] Bogotá
 
 ## Reto:
-  - [ ] Primer problema
+  - [X] Primer problema
   - [ ] Segundo problema
   - [ ] Tercer problema
   - [ ] Cuarto Problema (Opcional)
