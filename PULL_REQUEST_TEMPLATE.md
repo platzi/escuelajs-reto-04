@@ -12,5 +12,5 @@ Usuario Platzi: Maes
 ## Reto:
   - [X] Primer problema
   - [X] Segundo problema
-  - [ ] Tercer problema
+  - [X] Tercer problema
   - [ ] Cuarto Problema (Opcional)
