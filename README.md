@@ -4,7 +4,9 @@ Reto 4 Septiembre 21: Curso de Profesional de JavaScript
 # Ejecución
 
 ```
-npm run start
+npm run start    -> para ejercicio N° 1
+npm run startp2  -> para ejercicio N° 2
+npm run startp3  -> para ejercicio N° 3
 ```
 
 ### Primer problema
