@@ -25,10 +25,10 @@ const orders = (time, product, table) => {
   
   const waiter2 = () => {
     orders(randomTime(), menu.hotdog, table[0])
-      .then((res) => console.log(res))
+      .then((response) => console.log(response))
       .catch((err) => console.error(err));
     orders(randomTime(), menu.pizza, table[2])
-      .then((res) => console.log(res))
+      .then((response) => console.log(response))
       .catch((err) => console.error(err));
   };
   
